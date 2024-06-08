@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 # ================================================================================================
 # Méthodes des rectangles "Python"
 
-def methode_des_rectangles(a, pas, p_1, p_2, p_3, p_4):
+def methode_des_rectangles_py(a, pas, p_1, p_2, p_3, p_4, n):
     aire_totale = 0  # Initialisation de l'aire totale sous la courbe
     x_i = a  # Initialisation de la borne inférieure
     liste_x = []  # Initialisation de la liste des x
@@ -29,7 +29,7 @@ def methode_des_rectangles(a, pas, p_1, p_2, p_3, p_4):
 # ================================================================================================
 # Méthodes des rectangles "Numpy"
 
-def methode_des_rectangles_numpy(a, b, pas, p_1, p_2, p_3, p_4):
+def methode_des_rectangles_numpy(a, b, pas, p_1, p_2, p_3, p_4, n):
     x = np.linspace(a, b - pas, n)  # Génération des valeurs de x
     y = p_1 + p_2 * x + p_3 * (x ** 2) + p_4 * (x ** 3)  # Calcul des valeurs de y
     aire_totale = np.sum(pas * y)  # Calcul de l'aire totale
@@ -43,7 +43,6 @@ def afficher_courbes(liste_x_py, liste_y_py, x_np, y_np,  pas):
     plt.bar(liste_x_py, liste_y_py, width=pas, align='edge', alpha=0.3, edgecolor='g')
     plt.xlabel('x')
     plt.ylabel('f(x)')
-    plt.legend()
     plt.title("Méthode des rectangles et solution analytique 'Python' et 'NumPy'")
     plt.show()
 
@@ -62,7 +61,10 @@ p4 = 50
 # Création du pas
 pas_resolution = (borne_b - borne_a) / n
 
-liste_x_python, liste_y_python, aire_totale_python = methode_des_rectangles(borne_a, pas_resolution, p1, p2, p3, p4)
+liste_x_python, liste_y_python, aire_totale_python =\
+    methode_des_rectangles_py(borne_a, pas_resolution, p1, p2, p3, p4, n)
+
 x_numpy, y_numpy, aire_totale_numpy = (
-    methode_des_rectangles_numpy(borne_a, borne_b, pas_resolution, p1, p2, p3, p4))
+    methode_des_rectangles_numpy(borne_a, borne_b, pas_resolution, p1, p2, p3, p4, n))
+
 afficher_courbes(liste_x_python, liste_y_python, x_numpy, y_numpy, pas_resolution)
