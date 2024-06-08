@@ -53,17 +53,6 @@ def entrees_utilisateurs():
             print("Le format n'est pas bon. Veuillez réessayer.")
 
     while True:
-        print(
-            "Il existe 3 méthodes pour calculer votre intrégrale : la méthode des rectangles, la méthode des trapèzes "
-            "et la méthodes de Simpson.")
-        methode = input("Veuillez rentrer le nom de la méthode (trapezes, simpson ou rectangles):\n")
-
-        if methode in ['trapezes', 'rectangles', 'simpson']:
-            break
-        else:
-            print("Rentrée invalide. Veuillez réessayer.")
-
-    while True:
         try:
             nombre_segments = int(input("Veuillez rentrer le nombre de segments que vous voulez utiliser:\n"))
             if nombre_segments > 0 and isinstance(nombre_segments, int):
@@ -72,7 +61,7 @@ def entrees_utilisateurs():
             print("Le format n'est pas bon. "
                   "Veuillez entrer un nombre entier et supérieur à 0.")
 
-    return p1, p2, p3, p4, a, b, methode, nombre_segments
+    return p1, p2, p3, p4, a, b, nombre_segments
 
 
 # ================================================================================================
@@ -84,11 +73,6 @@ def integration_numerique():
     print("\n")
 
 
-p1, p2, p3, p4, a, b, methode, nombre_segments = entrees_utilisateurs()
-print(p1, p2, p3, p4, a, b, methode, nombre_segments)
+p1, p2, p3, p4, a, b, nombre_segments = entrees_utilisateurs()
+print(p1, p2, p3, p4, a, b, nombre_segments)
 
-# if methode == 'simpson':
-# methode simpson
-# elif methode == 'trapeze':
-# methode trapeze
-# elif methode == 'rectangle':
