@@ -13,19 +13,24 @@ from scipy.integrate import trapezoid
 
 a = 0
 b = 100
-n = 10
+n = 50
 p1 = 1
 p2 = 8
 p3 = 5
 p4 = 9
 
-# Fonction 1:calcul de la courbe polynomiale exacte
+# Fonction 1: Calcul de la courbe polynomiale exacte et de son intégrale
 
 
 def fonction_polynomiale(p1, p2, p3, p4, x):
     polynome = p1 + p2 * x + p3 * (x ** 2) + p4 * (x ** 3)
     return polynome
 
+def integrale_exacte(p1, p2, p3, p4, a, b):
+    integrale_exacte = p1 * (b - a) + p2 * ((b ** 2) - (a ** 2))/2 + p3 * ((b ** 3) - (a ** 3))/3 + p4 * ((b ** 4) - (a ** 4))/4
+    return integrale_exacte
+
+print(integrale_exacte(p1, p2, p3, p4, a, b))
 
 # Fonction 2: Méthode des trapezes en python
 def methodes_trapezes_python(a, b, n, p1, p2, p3, p4):
@@ -61,7 +66,24 @@ def aire_trapeze_scipy(a, b, n, p1, p2, p3, p4):
     return trapezoid(y, x)  # retourne l'aire sous la courbe
 
 
-# Fonction 5: Tracé des graphiques
+def convergence_scipy(a, b, p1, p2, p3, p4):
+    liste_n = np.arange(1, 20, 1)
+    diff = np.zeros((len(liste_n)))
+    count = 0
+    aire_exacte = integrale_exacte(p1, p2, p3, p4, a, b)
+    for valeur in liste_n:
+        diff[count] = abs(aire_trapeze_scipy(a, b, valeur, p1, p2, p3, p4) - aire_exacte)
+        count += 1
+    plt.plot(liste_n, diff)
+    plt.title('Convergence fonction scipy')
+    plt.xlabel('Nombre de segments')
+    plt.ylabel('Erreur aire')
+    plt.show()
+    return
+
+convergence_scipy(a, b, p1, p2, p3, p4)
+
+# Fonction 5: Tracé des graphiques pour un nombre de segments n donné
 
 def tracer_graphique(a, b, n, p1, p2, p3, p4):
 
