@@ -11,3 +11,41 @@ Chaque méthode est implémentée dans un fichier python séparé portant le mê
 Le fichier .main contient le programme principal qui appelle les autres fichiers.
 
 ### Utilisation du code:
+
+
+**Méthode de Simpson**
+
+On utilise la formule de Simpson pour calculer l'aire sous la courbe sur le segment [a, b]: 
+![image](https://github.com/AdrienHuyghebaert/projet_integration_numerique/assets/169941933/09cd9718-b0d8-421d-a769-b6a9c3b6d471)
+
+Pour cela on utilise 3 fonctions : 
+
+**formule_simpson()**
+
+Cette fonction prend en entrée les points du segment de la subdivision [a, b] et calcul l'aire sous la courbe selon la formule de Simpson. 
+
+**La fonction fait appel à la fonction de la formule à intégrer pour calculer les valeurs de l'évalutation de la fonction en a, b et (a+b)/2**
+
+- *Entrées :p1, p2, p3, p4, a, b*
+- *Sorties : valeur de l'aire sous la courbe pour l'interval*
+
+**calcul_integrale_simpson()**
+Discrétise le segment donné par l'utilisateur selon le nombre de points fournis et renvoie la valeur de l'aire sous la courbe, ainsi que les points x, y associés à la courbe.
+
+**La fonction fait appel à la fonction de la formule_simpson()**
+
+- *Entrées :p1, p2, p3, p4, a, b, n*
+- *Sorties : valeur de l'aire sous la courbe, points x/y*
+
+**fctio()**
+
+Cette fonction évalue la fonction avec les paramètres définis pas l'utilisateur au point x donné. 
+
+- *Entrées :p1, p2, p3, p4, x*
+- *Sorties : point y*
+
+**tracer_courbes()**
+
+Trace les courbes de la méthode Simpson pour la version simple et la version vectorisée. 
+
+*Une fonction permet également d'obtenir la valeur calculée selon un module Scipy : **calcul_integrale_simpson_scipy()***
