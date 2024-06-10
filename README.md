@@ -49,3 +49,19 @@ Cette fonction évalue la fonction avec les paramètres définis pas l'utilisate
 Trace les courbes de la méthode Simpson pour la version simple et la version vectorisée. 
 
 *Une fonction permet également d'obtenir la valeur calculée selon un module Scipy : **calcul_integrale_simpson_scipy()***
+
+
+**Méthode des trapèzes**
+
+Le fichier contient les fonctions suivantes:
+
+- fonction_polynomiale(p1, p2, p3, p4, x):
+- integrale_exacte(p1, p2, p3, p4, a, b):
+- methodes_trapezes_python(a, b, n, p1, p2, p3, p4):
+- methodes_trapezes_numpy(a, b, n, p1, p2, p3, p4):
+- aire_trapeze_scipy(a, b, n, p1, p2, p3, p4):
+- calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n):
+- tracer_convergence_temps_scipy(a, b, p1, p2, p3, p4, n):
+- tracer_graphique_trapeze(a, b, n, p1, p2, p3, p4):
+- calculer_temps_convergence(p1, p2, p3, p4, a, b, n):
+- tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):
