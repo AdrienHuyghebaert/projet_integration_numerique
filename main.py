@@ -12,7 +12,7 @@ import methode_rectangles
 import methode_trapezes
 
 # ================================================================================================
-# Entrées utiliateur
+# Entrées utilisateur
 borne_a = 20
 borne_b = 40
 nombre_segments = 1000

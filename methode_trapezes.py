@@ -256,12 +256,14 @@ def tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):
     plt.rcParams['figure.dpi'] = 125
 
     plt.subplot(2, 2, 1)
+    plt.yscale('log')
     plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[3], color='green')
     plt.title('Convergence de la méthode des trapèzes (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 2)
+    plt.yscale('log')
     plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[1], color='magenta')
     plt.title('Convergence de la méthode des trapèzes (numpy)')
     plt.xlabel('Nombre de segments')

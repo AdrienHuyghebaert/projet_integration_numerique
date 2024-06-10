@@ -164,12 +164,14 @@ def afficher_courbes(n, temps_calcul_python, temps_calcul_numpy, erreurs_python,
     plt.rcParams['figure.dpi'] = 125
 
     plt.subplot(2, 2, 1)
+    plt.yscale('log')
     plt.plot(liste_n, erreurs_python, color='green')
     plt.title('Evolution de la convergence de la méthode des rectangles en fonction du nombre de segments (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 2)
+    plt.yscale('log')
     plt.plot(liste_n, erreurs_numpy, color='magenta')
     plt.title('Evolution de la convergence de la méthode des rectangles en fonction du nombre de segments (numpy)')
     plt.xlabel('Nombre de segments')
