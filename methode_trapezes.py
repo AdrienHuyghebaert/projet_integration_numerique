@@ -1,6 +1,6 @@
 # ================================================================================================
 # Auteur: Groupe
-# Date: 9 juin 2024
+# Date: 10 juin 2024
 # Intégrale numérique: Méthode des trapezes
 # ================================================================================================
 
@@ -19,6 +19,7 @@ from scipy.integrate import trapezoid
 # b = 1
 # n = 100
 
+# ======================================= Fonction polynomiale ====================================================
 
 # Fonction 1: Calcul de la courbe polynomiale exacte et de son intégrale
 
@@ -27,14 +28,19 @@ def fonction_polynomiale(p1, p2, p3, p4, x):
     polynome = p1 + p2 * x + p3 * (x ** 2) + p4 * (x ** 3)
     return polynome
 
+# Calcul aire exacte de l'intégrale
+
 
 def integrale_exacte(p1, p2, p3, p4, a, b):
     integrale_exacte = (p1 * (b - a) + p2 * ((b ** 2) - (a ** 2))/2
                         + p3 * ((b ** 3) - (a ** 3))/3 + p4 * ((b ** 4) - (a ** 4))/4)
     return integrale_exacte
 
+# ========================================== Méthode python ===============================================
+
 
 # Fonction 2: Méthode des trapezes en python
+
 def methodes_trapezes_python(a, b, n, p1, p2, p3, p4):
     pas = (b-a)/n  # calcul du pas du découpage
     liste_pas = [a + i*pas for i in range(n+1)]  # liste des valeurs de x
@@ -47,6 +53,9 @@ def methodes_trapezes_python(a, b, n, p1, p2, p3, p4):
 
     return aire_totale, liste_ordonnees_python
 
+# ======================================== Méthode calcul aire numpy ==========================================
+
+
 # Fonction 3: Méthode des trapèzes avec numpy
 
 
@@ -56,6 +65,8 @@ def methodes_trapezes_numpy(a, b, n, p1, p2, p3, p4):
     liste_ordonnees = np.array([fonction_polynomiale(p1, p2, p3, p4, x) for x in liste_pas])
     aire_trapeze = pas * (liste_ordonnees[:-1] + liste_ordonnees[1:]) / 2
     return np.sum(aire_trapeze), liste_ordonnees
+
+# ========================================== Méthode calcul aire scipy ========================================
 
 
 # Fonction 4: Méthode des trapèzes avec scipy: calcul aire
@@ -69,13 +80,14 @@ def aire_trapeze_scipy(a, b, n, p1, p2, p3, p4):
 
 # Fonction 5: Convergence et temps de calcul de la méthode scipy
 
-
-def convergence_scipy(a, b, p1, p2, p3, p4, n):
+def calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n):
     liste_n = np.arange(1, n+1, 1)
     diff = np.zeros((len(liste_n)))
     count = 0
     temps_calcul_scipy = np.zeros((len(liste_n)))
     aire_exacte = integrale_exacte(p1, p2, p3, p4, a, b)
+
+    # Calcul erreur avec scipy
     for valeur in liste_n:
         diff[count] = abs(aire_trapeze_scipy(a, b, valeur, p1, p2, p3, p4) - aire_exacte)
 
@@ -86,25 +98,32 @@ def convergence_scipy(a, b, p1, p2, p3, p4, n):
         temps_calcul_scipy[count] = toc - tic
 
         count += 1
+    return temps_calcul_scipy, diff
+
+
+def tracer_convergence_temps_scipy(a, b, p1, p2, p3, p4, n):
+
+    liste_n = np.arange(1, n + 1, 1)
 
     plt.subplot(1, 2, 1)
-    plt.plot(liste_n, diff)
+    plt.plot(liste_n, calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n)[1])
     plt.title('Convergence fonction scipy')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur aire')
 
     plt.subplot(1, 2, 2)
-    plt.bar(liste_n, temps_calcul_scipy, color='cyan')
+    plt.bar(liste_n, calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n)[0], color='cyan')
     plt.title('Temps de calcul méthode des trapèzes (scipy)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
     plt.show()
 
-    return temps_calcul_scipy, diff  # renvoit les tableaux de valeurs des temps de calcul et des erreurs d'aires
+# ======================================= Graphiques aire méthode trapèzes =======================================
 
 # Fonction 5: Tracé des graphiques pour un nombre de segments n donné
 
-def tracer_graphique(a, b, n, p1, p2, p3, p4):
+
+def tracer_graphique_trapeze(a, b, n, p1, p2, p3, p4):
 
     plt.rcParams['font.size'] = 8
     plt.rcParams['figure.autolayout'] = True
@@ -149,7 +168,7 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     plt.grid()
     plt.legend()
 
-    #plt.show()
+    plt.show()
 
     # Affichage des tableaux
 
@@ -174,19 +193,19 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     toc2 = perf_counter()
     print(f"Temps d'execution avec méthode trapèzes (numpy): {toc2-tic2} [s]")
 
-    # Comparaison
+    # Comparaison du temps d'exécution
     if toc1-tic1 > toc2-tic2:
         print('Méthode numpy plus rapide que méthode python')
     else:
         print('false')
 
-# Appel de la fonction
 
-tracer_graphique(a, b, n, p1, p2, p3, p4)
+# ======================================== Convergence et temps de calcul trapèzes =============================
 
 
 # Fonction 6: Étude et affichage de la convergence et du temps de calcul
-def convergence_temps_calcul(p1, p2, p3, p4, a, b, n):
+def calculer_temps_convergence(p1, p2, p3, p4, a, b, n):
+
     liste_n = np.arange(1, n+1, 1)
     diff_python = np.zeros((1000, len(liste_n)))
     diff_numpy = np.zeros((1000, len(liste_n)))
@@ -224,42 +243,40 @@ def convergence_temps_calcul(p1, p2, p3, p4, a, b, n):
 
         cpt += 1
 
-    # Affichage des 4 courbes
+        return temps_calcul_numpy, maximums_numpy, temps_calcul_python, maximums_python
+
+
+def tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):
+
+    # Affichage des 4 courbes (convergence + temps de calcul)
+    liste_n = np.arange(1, n + 1, 1)
 
     plt.rcParams['font.size'] = 8
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
 
     plt.subplot(2, 2, 1)
-    plt.plot(liste_n, maximums_python, color='green')
+    plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[3], color='green')
     plt.title('Convergence de la méthode des trapèzes (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 2)
-    plt.plot(liste_n, maximums_numpy, color='magenta')
+    plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[1], color='magenta')
     plt.title('Convergence de la méthode des trapèzes (numpy)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 3)
-    plt.bar(liste_n, temps_calcul_python, color='green')
+    plt.bar(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[2], color='green')
     plt.title('Temps de calcul méthode des trapèzes (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
 
     plt.subplot(2, 2, 4)
-    plt.bar(liste_n, temps_calcul_numpy, color='magenta')
+    plt.bar(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[0], color='magenta')
     plt.title('Temps de calcul méthode des trapèzes (numpy)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
 
-    #plt.show()
-    return temps_calcul_numpy, maximums_numpy  # retourne les tableaux de valeurs des erreurs maximales et des temps de calcul avec numpy
-
-# Appel des fonctions
-
-#convergence_temps_calcul(p1, p2, p3, p4, a, b, n)
-
-#convergence_scipy(a, b, p1, p2, p3, p4, n)
-
+    plt.show()
