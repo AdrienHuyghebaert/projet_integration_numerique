@@ -115,14 +115,15 @@ def temps_execution(a, b, n, p1, p2, p3, p4):
     tic = perf_counter()
     methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)
     toc = perf_counter()
-    print(f"Temps d'exécution avec la méthode des rectangles (python): {toc - tic} [s]", '\n')
+    tic_toc_py = toc - tic
 
     # Temps d'exécution de la méthode des rectangles en numpy
-    tic = perf_counter()
+    tic_2 = perf_counter()
     methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)
-    toc = perf_counter()
-    print(f"Temps d'exécution avec la méthode des rectangles (numpy): {toc - tic} [s]")
+    toc_2 = perf_counter()
+    tic_toc_np = toc_2 - tic_2
 
+    return tic_toc_py, tic_toc_np
 
 # ================================================================================================
 # Fonction qui étudie la convergence et le temps de calcul des 2 méthodes en fonction de la solution exacte
@@ -138,16 +139,10 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
     for i in liste_n:
 
         # Temps de calcul de la méthode des rectangles avec python
-        tic = perf_counter()
-        liste_ordonnees_python = methode_des_rectangles_py(a, b, i, p1, p2, p3, p4)[1]
-        toc = perf_counter()
-        temps_calcul_python[cpt] = toc - tic
+        temps_calcul_python[cpt] = temps_execution(a, b, i, p1, p2, p3, p4)[0]
 
         # Temps de calcul de la méthode des rectangles avec numpy
-        tic_2 = perf_counter()
-        liste_ordonnees_numpy = methode_des_rectangles_numpy(a, b, i, p1, p2, p3, p4)[1]
-        toc_2 = perf_counter()
-        temps_calcul_numpy[cpt] = toc_2 - tic_2
+        temps_calcul_numpy[cpt] = temps_execution(a, b, i, p1, p2, p3, p4)[1]
 
         # Convergence de la méthode des rectangles avec python
         erreurs_python[cpt] = integrale_exacte - methode_des_rectangles_py(a, b, i, p1, p2, p3, p4)[2]
@@ -195,7 +190,7 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
 
 borne_a = 20
 borne_b = 40
-nombre_segments = 1000
+nombre_segments = 100
 p_1 = 10
 p_2 = 4
 p_3 = 1
@@ -204,5 +199,5 @@ p_4 = 50
 # methode_des_rectangles_py(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # calculer_integrale_exacte(borne_a, borne_b, p_1, p_2, p_3, p_4)
 # temps_execution(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+# etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
