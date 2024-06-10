@@ -23,12 +23,11 @@ def formule_simpson_simple(p1, p2, p3, p4, a, b):
 # Calcul des points de la courbe et la valeur de l'intégrale selon la méthode de Simpson
 def calcul_integrale_simpson_simple(p1, p2, p3, p4, a, b, n):
     # Creation de l'interval de calcul
-    print(n)
-    interval = abs(b - a) / (n - 1)
+    interval = abs(b - a) / n
     pts_courbe = [fction_simple(p1, p2, p3, p4, a)]
     somme = 0
     x = a
-    i = n-1
+    i = n
     pts_calcul = [a]
 
     # calcul des points de la fonction associé aux valeurs de l'interval et de la somme des aires sous la courbe associé
@@ -38,7 +37,6 @@ def calcul_integrale_simpson_simple(p1, p2, p3, p4, a, b, n):
         pts_courbe.append(fction_simple(p1, p2, p3, p4, x))
         pts_calcul.append(x)
         i -= 1
-    print(pts_calcul)
     return somme, pts_calcul, pts_courbe
 
 
@@ -59,10 +57,8 @@ def formule_simpson_vect(p1, p2, p3, p4, a, b):
 
 
 def calcul_integrale_simpson_vect(p1, p2, p3, p4, a, b, n):
-    print(n)
     # définition de l'interval de calcul
-    pts_calcul = np.linspace(a, b, n)
-    print(pts_calcul)
+    pts_calcul = np.linspace(a, b, n+1)
 
     # calcul des points de la fonction associé aux valeurs de l'interval
     pts_courbe = fction_vect(p1, p2, p3, p4, pts_calcul)
@@ -83,7 +79,7 @@ def fction_vect(p1, p2, p3, p4, x):
 
 def calcul_integrale_simpson_scipy(p1, p2, p3, p4, a, b, n):
     # définition de l'interval de calcul
-    pts_calcul = np.linspace(a, b, n)
+    pts_calcul = np.linspace(a, b, n+1)
 
     # calcul des points de la fonction associé aux valeurs de l'interval
     pts_courbe = p1 + p2 * pts_calcul + p3 * np.power(pts_calcul, 2) + p4 * np.power(pts_calcul, 3)
