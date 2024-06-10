@@ -243,7 +243,7 @@ def calculer_temps_convergence(p1, p2, p3, p4, a, b, n):
 
         cpt += 1
 
-        return temps_calcul_numpy, maximums_numpy, temps_calcul_python, maximums_python
+    return temps_calcul_numpy, maximums_numpy, temps_calcul_python, maximums_python
 
 
 def tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):

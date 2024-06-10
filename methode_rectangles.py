@@ -159,7 +159,7 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
 def afficher_courbes(n, temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy):
     liste_n = np.arange(1, n + 1, 1)
 
-    plt.rcParams['font.size'] = 4
+    plt.rcParams['font.size'] = 8
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
 
@@ -194,18 +194,18 @@ def afficher_courbes(n, temps_calcul_python, temps_calcul_numpy, erreurs_python,
 # Fonction principale
 # Cette fonction permet d'estimer la convergence et le temps d'exécution lorsqu'on augmente le nombre de segments
 
-borne_a = 20
-borne_b = 40
+borne_a = -1
+borne_b = 1
 nombre_segments = 100
-p_1 = 10
-p_2 = 4
-p_3 = 1
-p_4 = 50
+p_1 = 24
+p_2 = -30
+p_3 = -50
+p_4 = 3
 
 # methode_des_rectangles_py(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # calculer_integrale_exacte(borne_a, borne_b, p_1, p_2, p_3, p_4)
 # temps_execution(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy = (
-    etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4))
+#temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy = (
+# etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4))
 # tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy)
+# afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy)
