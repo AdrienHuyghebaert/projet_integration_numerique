@@ -9,6 +9,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import methode_rectangles
+import methode_trapezes
 
 # ================================================================================================
 # Entrées utiliateur
@@ -52,6 +53,8 @@ def comparer_temps_calcul(a, b, n, p1, p2, p3, p4):
 
         cpt += 1
 
+    temps_calcul_traps_numpy = methode_trapezes.convergence_temps_calcul(p1, p2, p3, p4, a, b, n)[0]
+
     # Affichage des courbes
     plt.rcParams['font.size'] = 4
     plt.rcParams['figure.autolayout'] = True
@@ -59,6 +62,7 @@ def comparer_temps_calcul(a, b, n, p1, p2, p3, p4):
 
     plt.plot(liste_n, temps_calcul_rect_python, color='green', label='méthode des rectangles (Python)')
     plt.plot(liste_n, temps_calcul_rect_numpy, color='magenta', label='méthode des rectangles (Numpy)')
+    plt.plot(liste_n, temps_calcul_traps_numpy, color='blue', label='méthode des rectangles(Numpy)')
     plt.title('Evolution du temps de calcul en fonction du nombre de segments et de la méthode choisie')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')

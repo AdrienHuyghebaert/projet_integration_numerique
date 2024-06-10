@@ -57,7 +57,6 @@ def calculer_integrale_exacte(a, b, p1, p2, p3, p4):
 # ================================================================================================
 # Affichage des deux méthodes en fonction de la fonction
 def tracer_graphique(a, b, n, p1, p2, p3, p4):
-
     plt.rcParams['font.size'] = 4
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 100
@@ -125,6 +124,7 @@ def temps_execution(a, b, n, p1, p2, p3, p4):
 
     return tic_toc_py, tic_toc_np
 
+
 # ================================================================================================
 # Fonction qui étudie la convergence et le temps de calcul des 2 méthodes en fonction de la solution exacte
 def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
@@ -137,7 +137,6 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
     cpt = 0
 
     for i in liste_n:
-
         # Temps de calcul de la méthode des rectangles avec python
         temps_calcul_python[cpt] = temps_execution(a, b, i, p1, p2, p3, p4)[0]
 
@@ -145,14 +144,21 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
         temps_calcul_numpy[cpt] = temps_execution(a, b, i, p1, p2, p3, p4)[1]
 
         # Convergence de la méthode des rectangles avec python
-        erreurs_python[cpt] = integrale_exacte - methode_des_rectangles_py(a, b, i, p1, p2, p3, p4)[2]
+        erreurs_python[cpt] = abs(integrale_exacte - methode_des_rectangles_py(a, b, i, p1, p2, p3, p4)[2])
 
         # Convergence méthode des rectangles avec numpy
-        erreurs_numpy[cpt] = integrale_exacte - methode_des_rectangles_numpy(a, b, i, p1, p2, p3, p4)[2]
+        erreurs_numpy[cpt] = abs(integrale_exacte - methode_des_rectangles_numpy(a, b, i, p1, p2, p3, p4)[2])
 
         cpt += 1
 
-    # Affichage des 4 courbes
+    return temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy
+
+
+# ================================================================================================
+# Fonction qui gère l'affichage des graphes
+def afficher_courbes(n, temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy):
+    liste_n = np.arange(1, n + 1, 1)
+
     plt.rcParams['font.size'] = 4
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
@@ -199,5 +205,7 @@ p_4 = 50
 # methode_des_rectangles_py(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # calculer_integrale_exacte(borne_a, borne_b, p_1, p_2, p_3, p_4)
 # temps_execution(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-# etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy = (
+    etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4))
 # tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy)
