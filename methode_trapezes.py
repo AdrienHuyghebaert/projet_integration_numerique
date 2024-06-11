@@ -1,6 +1,6 @@
 # ================================================================================================
 # Auteur: Groupe
-# Date: 10 juin 2024
+# Date: 11 juin 2024
 # Intégrale numérique: Méthode des trapezes
 # ================================================================================================
 
@@ -17,7 +17,7 @@ from scipy.integrate import trapezoid
 # p4 = 3
 # a = -1
 # b = 1
-# n = 1000
+# n = 100
 
 # ======================================= Fonction polynomiale ====================================================
 
@@ -98,21 +98,35 @@ def calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n):
         temps_calcul_scipy[count] = toc - tic
 
         count += 1
-    return temps_calcul_scipy, diff
+
+    # Régression linéaire pour l'affichage du temps de calcul scipy
+
+    coefficients_scipy = np.polyfit(liste_n, temps_calcul_scipy, 1)  # 1 pour une régression linéaire
+    slope, intercept = coefficients_scipy
+    y_lineaire_scipy = slope * liste_n + intercept
+
+    return temps_calcul_scipy, diff, y_lineaire_scipy
 
 
 def tracer_convergence_temps_scipy(a, b, p1, p2, p3, p4, n):
 
     liste_n = np.arange(1, n + 1, 1)
 
+    # Paramètres d'affichage des courbes
+
+    plt.rcParams['font.size'] = 8
+    plt.rcParams['figure.autolayout'] = True
+    plt.rcParams['figure.dpi'] = 125
+
     plt.subplot(1, 2, 1)
+    plt.yscale('log')
     plt.plot(liste_n, calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n)[1])
     plt.title('Convergence fonction scipy')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur aire')
 
     plt.subplot(1, 2, 2)
-    plt.bar(liste_n, calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n)[0], color='cyan')
+    plt.plot(liste_n, calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n)[2], color='cyan')
     plt.title('Temps de calcul méthode des trapèzes (scipy)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
@@ -144,8 +158,8 @@ def tracer_graphique_trapeze(a, b, n, p1, p2, p3, p4):
     y_interp = np.interp(x, x_numpy, f_a)
 
     plt.subplot(1, 2, 1)
-    plt.plot(x, y_interp, color='magenta', label='méthode numpy', linestyle='-')
-    plt.plot(x, y, color='blue', label='fonction analytique', linestyle='-', linewidth=0.8)
+    plt.plot(x, y_interp, color='magenta', label='méthode numpy', linestyle='-', linewidth=0.8)
+    plt.plot(x, y, color='blue', label='fonction analytique', linestyle='-', linewidth=0.5)
     plt.fill_between(x, y_interp, color='yellow', alpha=0.3)
     plt.title('Méthode des trapèzes avec numpy')
     plt.xlabel('x')
@@ -159,8 +173,8 @@ def tracer_graphique_trapeze(a, b, n, p1, p2, p3, p4):
     y_interp_python = np.interp(x, x_numpy, liste_ordonnees)
 
     plt.subplot(1, 2, 2)
-    plt.plot(x, y_interp_python, color='cyan', label='méthode python', linestyle='-')
-    plt.plot(x, y, color='blue', label='fonction analytique', linestyle='-', linewidth=0.8)
+    plt.plot(x, y_interp_python, color='cyan', label='méthode python', linestyle='-', linewidth=0.8)
+    plt.plot(x, y, color='blue', label='fonction analytique', linestyle='-', linewidth=0.5)
     plt.fill_between(x, y_interp_python, color='yellow', alpha=0.3)
     plt.title('Méthode des trapèzes avec python')
     plt.xlabel('x')
@@ -243,12 +257,24 @@ def calculer_temps_convergence(p1, p2, p3, p4, a, b, n):
 
         cpt += 1
 
-        return temps_calcul_numpy, maximums_numpy, temps_calcul_python, maximums_python
+    # Régression linéaire pour l'affichage du temps de calcul python
+
+    coefficients_python = np.polyfit(liste_n, temps_calcul_python, 1)  # 1 pour une régression linéaire
+    slope, intercept = coefficients_python
+    y_lineaire_python = slope * liste_n + intercept
+
+    # Régression linéaire pour l'affichage du temps de calcul numpy
+
+    coefficients_numpy = np.polyfit(liste_n, temps_calcul_numpy, 1)  # 1 pour une régression linéaire
+    slope, intercept = coefficients_numpy
+    y_lineaire_numpy = slope * liste_n + intercept
+
+    return temps_calcul_numpy, maximums_numpy, temps_calcul_python, maximums_python, y_lineaire_python, y_lineaire_numpy
 
 
 def tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):
 
-    # Affichage des 4 courbes (convergence + temps de calcul)
+    # Affichage des 3 courbes (convergence + comparaison des temps de calcul)
     liste_n = np.arange(1, n + 1, 1)
 
     plt.rcParams['font.size'] = 8
@@ -256,27 +282,35 @@ def tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):
     plt.rcParams['figure.dpi'] = 125
 
     plt.subplot(2, 2, 1)
+    plt.yscale('log')
     plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[3], color='green')
     plt.title('Convergence de la méthode des trapèzes (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 2)
+    plt.yscale('log')
     plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[1], color='magenta')
     plt.title('Convergence de la méthode des trapèzes (numpy)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 3)
-    plt.bar(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[2], color='green')
-    plt.title('Temps de calcul méthode des trapèzes (python)')
+    plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[4], color='green', label='méthode pyhton')
+    plt.title('Temps de calcul méthode des trapèzes')
+    plt.legend()
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
 
-    plt.subplot(2, 2, 4)
-    plt.bar(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[0], color='magenta')
-    plt.title('Temps de calcul méthode des trapèzes (numpy)')
+    plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[5], color='magenta', label='méthode numpy')
+    plt.legend()
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
 
     plt.show()
+
+# tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n)
+#
+# tracer_convergence_temps_scipy(a, b, p1, p2, p3, p4, n)
+#
+# tracer_graphique_trapeze(a, b, n, p1, p2, p3, p4)
