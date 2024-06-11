@@ -17,7 +17,7 @@ from scipy.integrate import trapezoid
 # p4 = 3
 # a = -1
 # b = 1
-# n = 100
+# n = 1000
 
 # ======================================= Fonction polynomiale ====================================================
 
@@ -243,7 +243,7 @@ def calculer_temps_convergence(p1, p2, p3, p4, a, b, n):
 
         cpt += 1
 
-    return temps_calcul_numpy, maximums_numpy, temps_calcul_python, maximums_python
+        return temps_calcul_numpy, maximums_numpy, temps_calcul_python, maximums_python
 
 
 def tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):
@@ -256,14 +256,12 @@ def tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):
     plt.rcParams['figure.dpi'] = 125
 
     plt.subplot(2, 2, 1)
-    plt.yscale('log')
     plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[3], color='green')
     plt.title('Convergence de la méthode des trapèzes (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 2)
-    plt.yscale('log')
     plt.plot(liste_n, calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[1], color='magenta')
     plt.title('Convergence de la méthode des trapèzes (numpy)')
     plt.xlabel('Nombre de segments')
