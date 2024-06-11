@@ -32,7 +32,7 @@ Le fichier contient les fonctions suivantes:
 - tracer_graphique(a, b, n, p1, p2, p3, p4): trace les courbes de la méthode des rectangles pour Python et Numpy pour n =10 et 100 par rapport à la fonction
 - temps_execution(a, b, n, p1, p2, p3, p4): calcul le temps d'exécution de la méthode des rectangles pour Python et Numpy (sorties : *Le temps de calcul des deux méthodes*)
 - etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4): calcul la convergence et le temps de calcul des différentes méthodes en fonction du nombre de segments (sorties : *des tableaux des temps de calcul et des convergences des différentes méthodes*)
-- afficher_courbes(a, b, n, p1, p2, p3, p4): affiche des graphiques en prenant les différents éléments de sortie de la fonction précédente
+- (non utilisée) afficher_courbes(a, b, n, p1, p2, p3, p4): affiche des graphiques en prenant les différents éléments de sortie de la fonction précédente
 
 ### Méthode des trapèzes
 
@@ -48,10 +48,10 @@ Le fichier contient les fonctions suivantes:
 - methodes_trapezes_numpy(): calcule l'aire avec la méthode des trapèzes avec vectorisation du code 
 - aire_trapeze_scipy(): calculer l'aire sous la courbe à partir de la fonction ***trapezoid*** du package integrate de **scipy**
 - calcul_convergence_temps_scipy(): renvoie le tableau des temps de calcul de scipy et le tableau des différences avec l'aire exacte (erreurs) pour n variant de 1 à 1000
-- tracer_convergence_temps_scipy(): trace les courbes avec les données de la fonction ci-dessus
-- tracer_graphique_trapeze(): trace les courbes de la méthode des trapèzes pour Python et Numpy (n fixé) et renvoie la valeur de l'aire sous la courbe 
+- (non utilisée) tracer_convergence_temps_scipy(): trace les courbes avec les données de la fonction ci-dessus
+- (non utilisée) tracer_graphique_trapeze(): trace les courbes de la méthode des trapèzes pour Python et Numpy (n fixé) et renvoie la valeur de l'aire sous la courbe 
 - calculer_temps_convergence(): renvoie un tableau des différences maximales des ordonnées pour chaque valeur de segment n et un tableau des temps calculés
-- tracer_convergence_temps_python_numpy(): trace les courbes de la fonction précédente
+- (non utilisée) tracer_convergence_temps_python_numpy(): trace les courbes de la fonction précédente
 
   
 
