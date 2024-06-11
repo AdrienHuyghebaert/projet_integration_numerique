@@ -14,13 +14,13 @@ import methode_simpson
 
 # ================================================================================================
 # Entrées utilisateur
-borne_a = 20
-borne_b = 40
-nombre_segments = 1000
-p_1 = 10
-p_2 = 4
-p_3 = 1
-p_4 = 50
+borne_a = -1
+borne_b = 1
+nombre_segments = 2000
+p_1 = 24
+p_2 = -30
+p_3 = -50
+p_4 = 3
 
 
 # ================================================================================================
@@ -55,28 +55,23 @@ def comparer_temps_calcul(a, b, n, p1, p2, p3, p4):
     temps_calcul_simp_numpy = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[7]
 
     # Affichage des courbes
-    plt.rcParams['font.size'] = 7
+    plt.rcParams['font.size'] = 12
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
 
     # Avec Python
-    plt.subplot(1, 2, 1)
-    plt.plot(liste_n, temps_calcul_rect_python, color='magenta', label='méthode des rectangles (Python)')
+    plt.plot(liste_n, temps_calcul_rect_python, color='blue', label='méthode des rectangles (Python)')
     plt.plot(liste_n, temps_calcul_traps_python, color='red', label='méthode des trapèzes (Python)')
     plt.plot(liste_n, temps_calcul_simp_python, color='green', label='méthode de Simpson (Python)')
-    plt.xlabel('Nombre de segments')
-    plt.ylabel('Temps de calcul (s)')
-    plt.title('Evolution du temps de calcul en fonction du nombre de segments avec Python')
-    plt.legend()
 
     # Avec Numpy
-    plt.subplot(1, 2, 2)
-    plt.plot(liste_n, temps_calcul_rect_numpy, color='magenta', label='méthode des rectangles (Numpy)')
-    plt.plot(liste_n, temps_calcul_traps_numpy, color='red', label='méthode des trapèzes (Numpy)')
-    plt.plot(liste_n, temps_calcul_simp_numpy, color='green', label='méthode de Simpson (Numpy)')
+    plt.plot(liste_n, temps_calcul_rect_numpy, color='blue',linestyle='--', label='méthode des rectangles (Numpy)')
+    plt.plot(liste_n, temps_calcul_traps_numpy, color='red',linestyle='--', label='méthode des trapèzes (Numpy)')
+    plt.plot(liste_n, temps_calcul_simp_numpy, color='green', linestyle='--', label='méthode de Simpson (Numpy)')
+
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
-    plt.title('Evolution du temps de calcul en fonction du nombre de segments avec Numpy')
+    plt.title('Evolution du temps de calcul en fonction du nombre de segments et de la méthode')
     plt.legend()
 
     plt.show()
@@ -100,30 +95,24 @@ def comparer_convergence(a, b, n, p1, p2, p3, p4):
     convergence_simp_numpy = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[4]
 
     # Affichage des courbes
-    plt.rcParams['font.size'] = 7
+    plt.rcParams['font.size'] = 12
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
+    plt.yscale('log')
 
     # Avec Python
-    plt.subplot(1, 2, 1)
-    plt.yscale('log')
-    plt.plot(liste_n, convergence_rect_python, color='magenta', label='méthode des rectangles (Python)')
+    plt.plot(liste_n, convergence_rect_python, color='blue',  label='méthode des rectangles (Python)')
     plt.plot(liste_n, convergence_traps_python, color='red', label='méthode des trapèzes (Python)')
     plt.plot(liste_n, convergence_simp_python, color='green', label='méthode de Simpson (Python)')
-    plt.xlabel('Nombre de segments')
-    plt.ylabel('Erreur')
-    plt.title('Evolution de la convergence en fonction du nombre de segments avec Python')
-    plt.legend()
 
     # Avec Numpy
-    plt.subplot(1, 2, 2)
-    plt.yscale('log')
-    plt.plot(liste_n, convergence_rect_numpy, color='magenta', label='méthode des rectangles (Numpy)')
-    plt.plot(liste_n, convergence_traps_numpy, color='red', label='méthode des trapèzes (Numpy)')
-    plt.plot(liste_n, convergence_simp_numpy, color='green', label='méthode de Simpson (Python)')
+    plt.plot(liste_n, convergence_rect_numpy, color='blue', linestyle='--', label='méthode des rectangles (Numpy)')
+    plt.plot(liste_n, convergence_traps_numpy, color='red', linestyle='--', label='méthode des trapèzes (Numpy)')
+    plt.plot(liste_n, convergence_simp_numpy, color='green', linestyle='--', label='méthode de Simpson (Python)')
+
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur')
-    plt.title('Evolution de la convergence en fonction du nombre de segments avec Numpy')
+    plt.title('Evolution de la convergence en fonction du nombre de segments et de la méthode')
     plt.legend()
 
     plt.show()
@@ -144,7 +133,7 @@ def comparer_scipy(a, b, n, p1, p2, p3, p4):
     convergence_simp = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[5]
 
     # Affichage des courbes
-    plt.rcParams['font.size'] = 5
+    plt.rcParams['font.size'] = 5.5
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
 
@@ -173,6 +162,6 @@ def comparer_scipy(a, b, n, p1, p2, p3, p4):
 # ================================================================================================
 # Appel des fonctions
 
-# comparer_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-# comparer_convergence(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+comparer_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+comparer_convergence(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 comparer_scipy(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
