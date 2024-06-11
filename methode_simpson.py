@@ -222,9 +222,9 @@ def afficher_courbes(n, temps_calc_python, temps_calc_numpy, temps_calc_scipy, e
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 3)
-    plt.bar(liste_n, temps_calc_python, color='green')
-    plt.bar(liste_n, temps_calc_numpy, color='magenta')
-    plt.bar(liste_n, temps_calc_scipy, color='yellow')
+    plt.plot(liste_n, temps_calc_python, color='green')
+    plt.plot(liste_n, temps_calc_numpy, color='magenta')
+    plt.plot(liste_n, temps_calc_scipy, color='yellow')
     plt.title('Evolution du temps de calcul de la méthode de Simspon en fonction du nombre de segments (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
