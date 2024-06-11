@@ -67,11 +67,9 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     y_ana = [calculer_fonction_polynomiale(i, p1, p2, p3, p4) for i in x_ana]
 
     n = 10  # Affichage pour 10 segments
+    pas = (b - a) / n # Création du pas
+
     # Méthode des rectangles avec python
-
-    # Création du pas
-    pas = (b - a) / n
-
     x_rect_py = methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)[0]
     y_rect_py = methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)[1]
     plt.subplot(2, 2, 1)
@@ -84,10 +82,8 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     plt.legend()
 
     # Méthode des rectangles avec numpy
-
     x_rect_np = methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)[0]
     y_rect_np = methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)[1]
-
     plt.subplot(2, 2, 2)
     plt.bar(x_rect_np, y_rect_np, width=pas, align='edge', alpha=0.3, edgecolor='r')
     plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2)
@@ -98,11 +94,9 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     plt.grid()
 
     n = 100  # Affichage pour 100 segments
+    pas = (b - a) / n # Changement du pas
+
     # Méthode des rectangles avec python
-
-    # Changement du pas
-    pas = (b - a) / n
-
     x_rect_py = methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)[0]
     y_rect_py = methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)[1]
     plt.subplot(2, 2, 3)
@@ -115,10 +109,8 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     plt.legend()
 
     # Méthode des rectangles avec numpy
-
     x_rect_np = methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)[0]
     y_rect_np = methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)[1]
-
     plt.subplot(2, 2, 4)
     plt.bar(x_rect_np, y_rect_np, width=pas, align='edge', alpha=0.3, edgecolor='r')
     plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2)
@@ -134,7 +126,8 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
 # ================================================================================================
 # Temps d'exécution des deux méthodes
 def temps_execution(a, b, n, p1, p2, p3, p4):
-    # Temps d'exécution de la méthode des trapèzes en python
+
+    # Temps d'exécution de la méthode des rectangles en python
     tic = perf_counter()
     methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)
     toc = perf_counter()
@@ -170,7 +163,7 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
         # Convergence de la méthode des rectangles avec python
         erreurs_python[cpt] = abs(integrale_exacte - methode_des_rectangles_py(a, b, i, p1, p2, p3, p4)[2])
 
-        # Convergence méthode des rectangles avec numpy
+        # Convergence de la méthode des rectangles avec numpy
         erreurs_numpy[cpt] = abs(integrale_exacte - methode_des_rectangles_numpy(a, b, i, p1, p2, p3, p4)[2])
 
         cpt += 1
@@ -179,7 +172,7 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
 
 
 # ================================================================================================
-# Fonction qui gère l'affichage des graphes
+# Fonction qui gère l'affichage des graphes des temps de calcul et des convergences
 def afficher_courbes(n, temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy):
     liste_n = np.arange(1, n + 1, 1)
 
@@ -202,8 +195,8 @@ def afficher_courbes(n, temps_calcul_python, temps_calcul_numpy, erreurs_python,
     plt.ylabel('Erreur maximale (échelle log)')
 
     plt.subplot(2, 2, 3)
-    plt.bar(liste_n, temps_calcul_python, color='green', label='méthode des rectangles (Python)')
-    plt.bar(liste_n, temps_calcul_numpy, color='magenta', label='méthode des rectangles (Numpy)')
+    plt.plot(liste_n, temps_calcul_python, color='green', label='méthode des rectangles (Python)')
+    plt.plot(liste_n, temps_calcul_numpy, color='magenta', label='méthode des rectangles (Numpy)')
     plt.title('Evolution du temps de calcul de la méthode des rectangles en fonction du nombre de segments')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
@@ -213,8 +206,7 @@ def afficher_courbes(n, temps_calcul_python, temps_calcul_numpy, erreurs_python,
 
 
 # ================================================================================================
-# Fonction principale
-# Cette fonction permet d'estimer la convergence et le temps d'exécution lorsqu'on augmente le nombre de segments
+# Appel des fonctions
 
 borne_a = -1
 borne_b = 1

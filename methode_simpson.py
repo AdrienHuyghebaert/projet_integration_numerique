@@ -22,7 +22,7 @@ def formule_simpson_simple(p1, p2, p3, p4, a, b):
 
 # Calcul des points de la courbe et la valeur de l'intégrale selon la méthode de Simpson
 def calcul_integrale_simpson_simple(p1, p2, p3, p4, a, b, n):
-    # Creation de l'interval de calcul
+    # Creation de l'intervalle de calcul
     interval = abs(b - a) / n
     pts_courbe = [fction_simple(p1, p2, p3, p4, a)]
     somme = 0
@@ -30,7 +30,8 @@ def calcul_integrale_simpson_simple(p1, p2, p3, p4, a, b, n):
     i = n
     pts_calcul = [a]
 
-    # calcul des points de la fonction associé aux valeurs de l'interval et de la somme des aires sous la courbe associé
+    # calcul des points de la fonction associé aux valeurs de l'intervalle
+    # et de la somme des aires sous la courbe associé
     while i > 0:
         somme += formule_simpson_simple(p1, p2, p3, p4, x, x + interval)
         x += interval
@@ -48,17 +49,19 @@ def fction_simple(p1, p2, p3, p4, x):
 
 # Section calcul python vectorisé
 
-# Fonction de calcul de l'aire sous la courbe entre les points a et b à l'aide de la fonction de Simspon avec le module Numpy
+# Fonction de calcul de l'aire sous la courbe entre les points a et b
+# à l'aide de la fonction de Simspon avec le module Numpy
 def formule_simpson_vect(p1, p2, p3, p4, a, b):
-    int_intervalle = ((b - a) / 6) * (fction_vect(p1, p2, p3, p4, a) + (4 * fction_vect(p1, p2, p3, p4, (a + b) / 2)) + fction_vect(p1, p2, p3, p4, b))
+    int_intervalle = ((b - a) / 6) * (fction_vect(p1, p2, p3, p4, a) + (4 * fction_vect(p1, p2, p3, p4, (a + b) / 2)) +
+                                      fction_vect(p1, p2, p3, p4, b))
     return int_intervalle
 
 
 def calcul_integrale_simpson_vect(p1, p2, p3, p4, a, b, n):
-    # définition de l'interval de calcul
+    # définition de l'intervalle de calcul
     pts_calcul = np.linspace(a, b, n+1)
 
-    # calcul des points de la fonction associé aux valeurs de l'interval
+    # calcul des points de la fonction associé aux valeurs de l'intervalle
     pts_courbe = fction_vect(p1, p2, p3, p4, pts_calcul)
 
     # et de la somme des aires sous la courbe associé
@@ -76,15 +79,17 @@ def fction_vect(p1, p2, p3, p4, x):
 # Section methode importée
 
 def calcul_integrale_simpson_scipy(p1, p2, p3, p4, a, b, n):
-    # définition de l'interval de calcul
+    # définition de l'intervalle de calcul
     pts_calcul = np.linspace(a, b, n+1)
 
-    # calcul des points de la fonction associé aux valeurs de l'interval
+    # calcul des points de la fonction associé aux valeurs de l'intervalle
     pts_courbe = p1 + p2 * pts_calcul + p3 * np.power(pts_calcul, 2) + p4 * np.power(pts_calcul, 3)
 
     # et de la somme des aires sous la courbe associé
     # lien de la doc : https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.simpson.html
-    somme = sci.simpson(pts_courbe, x=pts_calcul)  # Mettre les valeurs de y de la courbe en premier argument et le x associé en deuxième argument lien de la doc : https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.simpson.html
+    somme = sci.simpson(pts_courbe, x=pts_calcul)  # Mettre les valeurs de y de la courbe en premier argument et le x
+    # associé en deuxième argument lien de la doc :
+    # https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.simpson.html
 
     return somme
 
@@ -179,7 +184,7 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
         # Temps de calcul de la méthode de Sympson avec numpy
         temps_calcul_numpy[cpt] = temps_exec[1]
 
-        # Temps de calcul de la méthode de Sympson avec la fonction importrée
+        # Temps de calcul de la méthode de Sympson avec la fonction importée
         temps_calcul_scipy[cpt] = temps_exec[2]
 
         # Convergence de la méthode avec python
@@ -253,6 +258,8 @@ nombre_segments = 500
 # Zone d'appel des fonctions :
 
 # tracer_courbes(p_1, p_2, p_3, p_4, borne_a, borne_b, nombre_segments)
-temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy, erreurs_scipy = etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy, erreurs_scipy =\
+    etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy, erreurs_scipy)
+afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python,
+                 erreurs_numpy, erreurs_scipy)
