@@ -58,6 +58,7 @@ def comparer_temps_calcul(a, b, n, p1, p2, p3, p4):
     plt.rcParams['font.size'] = 12
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
+    plt.grid()
 
     # Avec Python
     plt.plot(liste_n, temps_calcul_rect_python, color='blue', label='méthode des rectangles (Python)')
@@ -65,9 +66,9 @@ def comparer_temps_calcul(a, b, n, p1, p2, p3, p4):
     plt.plot(liste_n, temps_calcul_simp_python, color='green', label='méthode de Simpson (Python)')
 
     # Avec Numpy
-    plt.plot(liste_n, temps_calcul_rect_numpy, color='blue', linestyle='--', label='méthode des rectangles (Numpy)')
-    plt.plot(liste_n, temps_calcul_traps_numpy, color='red', linestyle='--', label='méthode des trapèzes (Numpy)')
-    plt.plot(liste_n, temps_calcul_simp_numpy, color='green', linestyle='--', label='méthode de Simpson (Numpy)')
+    plt.plot(liste_n, temps_calcul_rect_numpy, color='orange', linestyle='--', label='méthode des rectangles (Numpy)')
+    plt.plot(liste_n, temps_calcul_traps_numpy, color='cyan', linestyle='--', label='méthode des trapèzes (Numpy)')
+    plt.plot(liste_n, temps_calcul_simp_numpy, color='brown', linestyle='--', label='méthode de Simpson (Numpy)')
 
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
@@ -99,6 +100,7 @@ def comparer_convergence(a, b, n, p1, p2, p3, p4):
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
     plt.yscale('log')
+    plt.grid()
 
     # Avec Python
     plt.plot(liste_n, convergence_rect_python, color='blue',  label='méthode des rectangles (Python)')
@@ -106,9 +108,9 @@ def comparer_convergence(a, b, n, p1, p2, p3, p4):
     plt.plot(liste_n, convergence_simp_python, color='green', label='méthode de Simpson (Python)')
 
     # Avec Numpy
-    plt.plot(liste_n, convergence_rect_numpy, color='blue', linestyle='--', label='méthode des rectangles (Numpy)')
-    plt.plot(liste_n, convergence_traps_numpy, color='red', linestyle='--', label='méthode des trapèzes (Numpy)')
-    plt.plot(liste_n, convergence_simp_numpy, color='green', linestyle='--', label='méthode de Simpson (Python)')
+    plt.plot(liste_n, convergence_rect_numpy, color='orange', linestyle='--', label='méthode des rectangles (Numpy)')
+    plt.plot(liste_n, convergence_traps_numpy, color='cyan', linestyle='--', label='méthode des trapèzes (Numpy)')
+    plt.plot(liste_n, convergence_simp_numpy, color='brown', linestyle='--', label='méthode de Simpson (Numpy)')
 
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur')
@@ -139,6 +141,7 @@ def comparer_scipy(a, b, n, p1, p2, p3, p4):
 
     # Temps de calcul
     plt.subplot(1, 2, 1)
+    plt.grid()
     plt.plot(liste_n, temps_calcul_trap, color='red', label='méthode des trapèzes (Scipy)')
     plt.plot(liste_n, temps_calcul_simp, color='green', label='méthode de Simpson (Scipy)')
     plt.xlabel('Nombre de segments')
@@ -148,6 +151,7 @@ def comparer_scipy(a, b, n, p1, p2, p3, p4):
 
     # Convergence
     plt.subplot(1, 2, 2)
+    plt.grid()
     plt.yscale('log')
     plt.plot(liste_n, convergence_trap, color='red', label='méthode des trapèzes (Scipy)')
     plt.plot(liste_n, convergence_simp, color='green', label='méthode des Simpson (Scipy)')
@@ -164,4 +168,4 @@ def comparer_scipy(a, b, n, p1, p2, p3, p4):
 
 comparer_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 comparer_convergence(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-comparer_scipy(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+# comparer_scipy(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
