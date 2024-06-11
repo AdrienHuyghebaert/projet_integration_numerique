@@ -153,7 +153,7 @@ def comparer_scipy(a, b, n, p1, p2, p3, p4):
     plt.plot(liste_n, temps_calcul_trap, color='red', label='méthode des trapèzes (Scipy)')
     plt.plot(liste_n, temps_calcul_simp, color='green', label='méthode de Simpson (Scipy)')
     plt.xlabel('Nombre de segments')
-    plt.ylabel('Erreur')
+    plt.ylabel('Temps de calcul (s)')
     plt.title('Evolution du temps de calcul en fonction du nombre de segments et de la méthode intégrée dans Scipy')
     plt.legend()
 
