@@ -50,9 +50,7 @@ def fction_simple(p1, p2, p3, p4, x):
 
 # Fonction de calcul de l'aire sous la courbe entre les points a et b à l'aide de la fonction de Simspon avec le module Numpy
 def formule_simpson_vect(p1, p2, p3, p4, a, b):
-    int_intervalle = ((b - a) / 6) * (
-                fction_vect(p1, p2, p3, p4, a) + 4 * fction_vect(p1, p2, p3, p4, (a + b) / 2) + fction_vect(p1, p2, p3,
-                                                                                                            p4, b))
+    int_intervalle = ((b - a) / 6) * (fction_vect(p1, p2, p3, p4, a) + (4 * fction_vect(p1, p2, p3, p4, (a + b) / 2)) + fction_vect(p1, p2, p3, p4, b))
     return int_intervalle
 
 
@@ -64,7 +62,7 @@ def calcul_integrale_simpson_vect(p1, p2, p3, p4, a, b, n):
     pts_courbe = fction_vect(p1, p2, p3, p4, pts_calcul)
 
     # et de la somme des aires sous la courbe associé
-    somme = np.sum(formule_simpson_vect(p1, p2, p3, p4, pts_calcul[0:n - 1], pts_calcul[1:n]))
+    somme = np.sum(formule_simpson_vect(p1, p2, p3, p4, pts_calcul[0:n], pts_calcul[1:n+1]))
 
     return somme, pts_calcul, pts_courbe
 
@@ -86,8 +84,7 @@ def calcul_integrale_simpson_scipy(p1, p2, p3, p4, a, b, n):
 
     # et de la somme des aires sous la courbe associé
     # lien de la doc : https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.simpson.html
-    somme = sci.simpson(pts_courbe,
-                        x=pts_calcul)  # Mettre les valeurs de y de la courbe en premier argument et le x associé en deuxième argument lien de la doc : https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.simpson.html
+    somme = sci.simpson(pts_courbe, x=pts_calcul)  # Mettre les valeurs de y de la courbe en premier argument et le x associé en deuxième argument lien de la doc : https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.simpson.html
 
     return somme
 
@@ -115,17 +112,17 @@ def tracer_courbes(p1, p2, p3, p4, a, b, n):
 
     # On trace le graph de la méthode simple
     plt.subplot(121).set_title("Méthode simple")
-    plt.plot(pts_calcul, y_interp_simple(pts_calcul), label="Méthode simple", color='#27F94E')
-    plt.plot(pts_calcul, pts_courbe, label="Courbe primitive", color='#F53315')
-    plt.fill_between(pts_calcul, y_interp_simple(pts_calcul), color='#539ecd')
+    plt.plot(pts_calcul, y_interp_simple(pts_calcul), label="methode python", color='#27F94E')
+    plt.plot(pts_calcul, pts_courbe, label="fonction analytique", color='#F53315')
+    plt.fill_between(pts_calcul, y_interp_simple(pts_calcul), color='#27F94E', alpha=0.3)
     plt.legend()
     plt.grid()
 
     # On trace le graph de la méthode vectorisée
     plt.subplot(122).set_title("Méthode vectorisée")
-    plt.plot(pts_calcul, y_interp_vect(pts_calcul), label="Méthode vectorisée", color='#27C6F9')
-    plt.plot(pts_calcul, pts_courbe, label="Courbe primitive", color='#F53315')
-    plt.fill_between(pts_calcul, y_interp_vect(pts_calcul), color='#539ecd')
+    plt.plot(pts_calcul, y_interp_vect(pts_calcul), label="methode numpy", color='#27C6F9')
+    plt.plot(pts_calcul, pts_courbe, label="fonction analytique", color='#F53315')
+    plt.fill_between(pts_calcul, y_interp_vect(pts_calcul), color='#27C6F9', alpha=0.3)
     plt.legend()
     plt.grid()
 
@@ -141,19 +138,24 @@ def calculer_integrale_exacte(a, b, p1, p2, p3, p4):
 # ================================================================================================
 # Temps d'exécution des deux méthodes
 def temps_execution(a, b, n, p1, p2, p3, p4):
-    # Temps d'exécution de la méthode des trapèzes en python
+    # Temps d'exécution de la méthode de Simpson en python
     tic = perf_counter()
     calcul_integrale_simpson_simple(p1, p2, p3, p4, a, b, n)
     toc = perf_counter()
     tic_toc_py = toc - tic
 
-    # Temps d'exécution de la méthode des rectangles en numpy
+    # Temps d'exécution de la méthode de Simpson en numpy
     tic_2 = perf_counter()
     calcul_integrale_simpson_vect(p1, p2, p3, p4, a, b, n)
     toc_2 = perf_counter()
     tic_toc_np = toc_2 - tic_2
 
-    return tic_toc_py, tic_toc_np
+    # Temps d'exécution de la méthode de Simpson importée
+    tic_3 = perf_counter()
+    calcul_integrale_simpson_scipy(p1, p2, p3, p4, a, b, n)
+    toc_3 = perf_counter()
+    tic_toc_scipy = toc_3 - tic_3
+    return tic_toc_py, tic_toc_np, tic_toc_scipy
 
 
 # ================================================================================================
@@ -162,34 +164,44 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
     liste_n = np.arange(1, n + 1, 1)
     erreurs_python = np.zeros(len(liste_n))
     erreurs_numpy = np.zeros(len(liste_n))
+    erreurs_scipy = np.zeros(len(liste_n))
     temps_calcul_python = np.zeros((len(liste_n)))
     temps_calcul_numpy = np.zeros((len(liste_n)))
+    temps_calcul_scipy = np.zeros((len(liste_n)))
     integrale_exacte = np.array(calculer_integrale_exacte(a, b, p1, p2, p3, p4))
     cpt = 0
 
     for i in liste_n:
         temps_exec = temps_execution(a, b, i, p1, p2, p3, p4)
-        # Temps de calcul de la méthode des rectangles avec python
+        # Temps de calcul de la méthode de Simpson python
         temps_calcul_python[cpt] = temps_exec[0]
 
-        # Temps de calcul de la méthode des rectangles avec numpy
+        # Temps de calcul de la méthode de Sympson avec numpy
         temps_calcul_numpy[cpt] = temps_exec[1]
 
-        # Convergence de la méthode des rectangles avec python
+        # Temps de calcul de la méthode de Sympson avec la fonction importrée
+        temps_calcul_scipy[cpt] = temps_exec[2]
+
+        # Convergence de la méthode avec python
         int_simple_simspon = calcul_integrale_simpson_simple(p1, p2, p3, p4, a, b, i)[0]
         erreurs_python[cpt] = integrale_exacte - int_simple_simspon
 
-        # Convergence méthode des rectangles avec numpy
+        # Convergence méthode avec numpy
         int_vect_simpson = calcul_integrale_simpson_vect(p1, p2, p3, p4, a, b, i)[0]
         erreurs_numpy[cpt] = integrale_exacte - int_vect_simpson
+
+        # Convergence méthode importée avec scipy
+        int_scipy_simpson = calcul_integrale_simpson_scipy(p1, p2, p3, p4, a, b, i)
+        erreurs_scipy[cpt] = integrale_exacte - int_scipy_simpson
+
         cpt += 1
 
-    return temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy
+    return temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy, erreurs_scipy
 
 
 # ================================================================================================
 # Fonction qui gère l'affichage des graphes
-def afficher_courbes(n, temps_calc_python, temps_calc_numpy, erreurs_pyt, erreurs_num):
+def afficher_courbes(n, temps_calc_python, temps_calc_numpy, temps_calc_scipy, erreurs_pyt, erreurs_num, erreurs_sci):
     liste_n = np.arange(1, n + 1, 1)
 
     # Affichage des 4 courbes
@@ -211,15 +223,18 @@ def afficher_courbes(n, temps_calc_python, temps_calc_numpy, erreurs_pyt, erreur
 
     plt.subplot(2, 2, 3)
     plt.bar(liste_n, temps_calc_python, color='green')
+    plt.bar(liste_n, temps_calc_numpy, color='magenta')
+    plt.bar(liste_n, temps_calc_scipy, color='yellow')
     plt.title('Evolution du temps de calcul de la méthode de Simspon en fonction du nombre de segments (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
 
     plt.subplot(2, 2, 4)
-    plt.bar(liste_n, temps_calc_numpy, color='magenta')
-    plt.title('Evolution du temps de calcul de la méthode de Simspon en fonction du nombre de segments (numpy)')
+    plt.yscale('log')
+    plt.plot(liste_n, erreurs_sci, color='yellow')
+    plt.title('Evolution de la convergence de la méthode de Simpson importée en fonction du nombre de segments (scipy)')
     plt.xlabel('Nombre de segments')
-    plt.ylabel('Temps de calcul (s)')
+    plt.ylabel('Erreur maximale')
 
     plt.show()
 
@@ -232,16 +247,12 @@ p_3 = -50
 p_4 = 3
 borne_a = -1
 borne_b = 1
-nombre_segments = 3
+nombre_segments = 500
 
 # ================================================================================================
 # Zone d'appel des fonctions :
 
-tracer_courbes(p_1, p_2, p_3, p_4, borne_a, borne_b, nombre_segments)
-# temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy = etudier_convergence_temps_calcul(borne_a,
-#                                                                                                           borne_b,
-#                                                                                                           nombre_segments,
-#                                                                                                           p_1, p_2, p_3,
-#                                                                                                           p_4)
+# tracer_courbes(p_1, p_2, p_3, p_4, borne_a, borne_b, nombre_segments)
+temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy, erreurs_scipy = etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-# afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy)
+afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy, erreurs_scipy)
