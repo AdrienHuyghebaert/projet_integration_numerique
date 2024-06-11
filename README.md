@@ -31,9 +31,8 @@ Le fichier contient les fonctions suivantes:
 - calculer_integrale_exacte(a, b, n, p1, p2, p3, p4): calcule l'aire exacte par intégration de la fonction entre a et b (sortie : *l'intégrale calculée entre les bornes a et b*)
 - tracer_graphique(a, b, n, p1, p2, p3, p4): trace les courbes de la méthode des rectangles pour Python et Numpy pour n =10 et 100 par rapport à la fonction
 - temps_execution(a, b, n, p1, p2, p3, p4): calcul le temps d'exécution de la méthode des rectangles pour Python et Numpy (sorties : *Le temps de calcul des deux méthodes*)
-- etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4): 
-
-
+- etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4): calcul la convergence et le temps de calcul des différentes méthodes en fonction du nombre de segments (sorties : *des tableaux des temps de calcul et des convergences des différentes méthodes*)
+- afficher_courbes(a, b, n, p1, p2, p3, p4): affiche des graphiques en prenant les différents éléments de sortie de la fonction précédente
 
 ### Méthode des trapèzes
 
