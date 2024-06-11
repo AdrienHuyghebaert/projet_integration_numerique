@@ -1,10 +1,17 @@
 ## Projet B: analyse numérique
 
 ### BUT:
-Ce programme permet de comparer 3 méthodes d'intégration par calcul de l'aire sous la courbe et d'afficher des graphiques de convergence et de temps de calcul de chaque méthode:
+Ce programme permet de comparer 3 méthodes d'intégration par calcul de l'aire sous la courbe:
 - méthode des rectangles
 - méthode des trapèzes
 - méthode de Simpson
+
+L'objectif est de les comparer en affichant des graphiques de convergence (erreur) et de temps de calcul de chaque méthode.
+
+Pour notre étude, nous prenons une **fonction polynomiale** de la forme:
+
+  ![image](https://github.com/AdrienHuyghebaert/projet_integration_numerique/assets/169942081/654b8fee-6655-4ea6-982c-0fd8e81a14a9)
+
 
 ### Structure du code:
 
@@ -36,7 +43,7 @@ Le fichier contient les fonctions suivantes:
 
 - methodes_trapezes_numpy(): calcule l'aire avec la méthode des trapèzes avec vectorisation du code 
 - aire_trapeze_scipy(): calculer l'aire sous la courbe à partir de la fonction ***trapezoid*** du package integrate de **scipy**
-- calcul_convergence_temps_scipy(): renvoie le tableau des temps de calcul de scipy et le tableau des différences des aires (erreurs) de la méthode 
+- calcul_convergence_temps_scipy(): renvoie le tableau des temps de calcul de scipy et le tableau des différences avec l'aire exacte (erreurs) pour n variant de 1 à 1000
 - tracer_convergence_temps_scipy(): trace les courbes avec les données de la fonction ci-dessus
 - tracer_graphique_trapeze(): trace les courbes de la méthode des trapèzes pour pyhton et numpy (n fixé) et renvoie la valeur de l'aire sous la courbe 
 - calculer_temps_convergence(): renvoie un tableau des différences maximales des ordonnées pour chaque valeur de segment n et un tableau des temps calculés
@@ -80,6 +87,14 @@ Cette fonction évalue la fonction avec les paramètres définis pas l'utilisate
 Trace les courbes de la méthode Simpson pour la version simple et la version vectorisée. 
 
 *Une fonction permet également d'obtenir la valeur calculée selon un module Scipy : **calcul_integrale_simpson_scipy()***
+
+### Le fichier .main
+
+Il contient les fonctions suivantes:
+
+- comparer_temps_calcul(): affiche le graphique des tracés linéaires des temps de calcul pour les 3 méthodes
+- comparer_convergence(): affiche le graphique des tracés de la convergence pour les 3 méthodes
+- comparer_scipy(): affiche les graphiques des tracés de la convergence et du temps de calcul avec scipy pour les méthodes des trapèzes et de simpson
 
 
 
