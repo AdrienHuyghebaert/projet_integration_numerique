@@ -105,17 +105,19 @@ calcul le temps d'exécution de la méthode des rectangles pour Python et Numpy
 
 - *Entrées : a, b, n, p1, p2, p3, p4*
 - *Sorties : Le temps de calcul des deux méthodes*
+
 **etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):**
 calcul la convergence et le temps de calcul des différentes méthodes en fonction du nombre de segments
 
 - *Entrées : a, b, n, p1, p2, p3, p4*
 - *Sorties : des tableaux des temps de calcul et des convergences des différentes méthodes*
 
-(non utilisée) **afficher_courbes():** 
+**afficher_courbes():** *(non utilisée)* 
 
 affiche des graphiques en prenant les différents éléments de sortie de la fonction précédente
 
 Fait appel à : **etudier_convergence_temps_calcul(), temps_execution()**
+
 - *Entrées : a, b, n, p1, p2, p3, p4*
 - *Sorties : graphiques *
 
