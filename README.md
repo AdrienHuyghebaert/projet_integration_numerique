@@ -60,38 +60,68 @@ Le fichier contient les fonctions suivantes:
 On utilise la formule de Simpson pour calculer l'aire sous la courbe sur le segment [a, b]: 
 ![image](https://github.com/AdrienHuyghebaert/projet_integration_numerique/assets/169941933/09cd9718-b0d8-421d-a769-b6a9c3b6d471)
 
-Pour cela on utilise 3 fonctions : 
+Pour cela on utilise 3 fonctions qui sont dérivée selon l'utilisation de Python ou Numpy pour le code simple et vectorisé : 
 
-**formule_simpson()**
+**formule_simpson()** *(existe en python et vectorisée)*
 
 Cette fonction prend en entrée les points du segment de la subdivision [a, b] et calcul l'aire sous la courbe selon la formule de Simpson. 
 
 **La fonction fait appel à la fonction de la formule à intégrer pour calculer les valeurs de l'évalutation de la fonction en a, b et (a+b)/2**
 
-- *Entrées :p1, p2, p3, p4, a, b*
+- *Entrées : p1, p2, p3, p4, a, b*
 - *Sorties : valeur de l'aire sous la courbe pour l'interval*
 
-**calcul_integrale_simpson()**
+**calcul_integrale_simpson()** *(existe en python, vectorisée et avec le module scipy.simpson)*
 Discrétise le segment donné par l'utilisateur selon le nombre de points fournis et renvoie la valeur de l'aire sous la courbe, ainsi que les points x, y associés à la courbe.
 
-**La fonction fait appel à la fonction de la formule_simpson()**
+**La fonction fait appel à la fonction de la formule_simpson()** 
 
-- *Entrées :p1, p2, p3, p4, a, b, n*
+- *Entrées : p1, p2, p3, p4, a, b, n*
 - *Sorties : valeur de l'aire sous la courbe, points x/y*
 
-**fctio()**
+**fctio()** *(existe en python et vectorisée)*
 
 Cette fonction évalue la fonction avec les paramètres définis pas l'utilisateur au point x donné. 
 
-- *Entrées :p1, p2, p3, p4, x*
+- *Entrées : p1, p2, p3, p4, x*
 - *Sorties : point y*
 
-**tracer_courbes()**
+**tracer_courbes()** 
 
 Trace les courbes de la méthode Simpson pour la version simple et la version vectorisée. 
 
 *Une fonction permet également d'obtenir la valeur calculée selon un module Scipy : **calcul_integrale_simpson_scipy()***
 
+**calculer_integrale_exacte():** 
+
+calcul l'aire exacte par intégration de la fonction entre a et b.
+
+- *Entrées : a, b, n, p1, p2, p3, p4*
+- *Sorties : l'intégrale calculée entre les bornes a et b*
+
+**temps_execution():**
+
+calcul le temps d'exécution de la méthode des rectangles pour Python et Numpy
+
+- *Entrées : a, b, n, p1, p2, p3, p4*
+- *Sorties : Le temps de calcul des deux méthodes*
+
+**etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):**
+calcul la convergence et le temps de calcul des différentes méthodes en fonction du nombre de segments
+
+- *Entrées : a, b, n, p1, p2, p3, p4*
+- *Sorties : des tableaux des temps de calcul et des convergences des différentes méthodes*
+
+**afficher_courbes():** *(non utilisée)* 
+
+affiche des graphiques en prenant les différents éléments de sortie de la fonction précédente
+
+Fait appel à : **etudier_convergence_temps_calcul(), temps_execution()**
+
+- *Entrées : a, b, n, p1, p2, p3, p4*
+- *Sorties : graphiques *
+
+  
 ### Le fichier .main
 
 Il contient les fonctions suivantes:
