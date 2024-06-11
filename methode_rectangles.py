@@ -235,4 +235,4 @@ p_4 = 3
 # temps_execution(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4))
 # tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-afficher_courbes(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+# afficher_courbes(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)

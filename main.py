@@ -43,19 +43,19 @@ def comparer_temps_calcul(a, b, n, p1, p2, p3, p4):
     liste_n = np.arange(1, n + 1, 1)
 
     # Récupération des temps de calcul de la méthode des trapèzes
-    temps_calcul_traps_numpy = methode_trapezes.calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[0]
-    temps_calcul_traps_python = methode_trapezes.calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[2]
+    temps_calcul_traps_numpy = methode_trapezes.calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[5]
+    temps_calcul_traps_python = methode_trapezes.calculer_temps_convergence(p1, p2, p3, p4, a, b, n)[4]
 
     # Récupération des temps de calcul de la méthode des rectangles
-    temps_calcul_rect_python = methode_rectangles.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[0]
-    temps_calcul_rect_numpy = methode_rectangles.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[1]
+    temps_calcul_rect_python = methode_rectangles.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[4]
+    temps_calcul_rect_numpy = methode_rectangles.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[5]
 
     # Récupération des temps de calcul de la méthode de Simpson
-    temps_calcul_simp_python = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[0]
-    temps_calcul_simp_numpy = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[1]
+    temps_calcul_simp_python = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[6]
+    temps_calcul_simp_numpy = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[7]
 
     # Affichage des courbes
-    plt.rcParams['font.size'] = 4
+    plt.rcParams['font.size'] = 7
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
 
@@ -100,7 +100,7 @@ def comparer_convergence(a, b, n, p1, p2, p3, p4):
     convergence_simp_numpy = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[4]
 
     # Affichage des courbes
-    plt.rcParams['font.size'] = 4
+    plt.rcParams['font.size'] = 7
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
 
@@ -111,7 +111,7 @@ def comparer_convergence(a, b, n, p1, p2, p3, p4):
     plt.plot(liste_n, convergence_traps_python, color='red', label='méthode des trapèzes (Python)')
     plt.plot(liste_n, convergence_simp_python, color='green', label='méthode de Simpson (Python)')
     plt.xlabel('Nombre de segments')
-    plt.ylabel('Temps de calcul (s)')
+    plt.ylabel('Erreur')
     plt.title('Evolution de la convergence en fonction du nombre de segments avec Python')
     plt.legend()
 
@@ -136,15 +136,15 @@ def comparer_scipy(a, b, n, p1, p2, p3, p4):
     liste_n = np.arange(1, n + 1, 1)
 
     # Récupération du temps de calcul et de la convergence de la méthode des trapèzes de Scipy
-    temps_calcul_trap = methode_trapezes.calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n)[0]
+    temps_calcul_trap = methode_trapezes.calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n)[2]
     convergence_trap = methode_trapezes.calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n)[1]
 
     # Récupération du temps de calcul et de la convergence de la méthode de Simpson de Scipy
-    temps_calcul_simp = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[2]
+    temps_calcul_simp = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[8]
     convergence_simp = methode_simpson.etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[5]
 
     # Affichage des courbes
-    plt.rcParams['font.size'] = 4
+    plt.rcParams['font.size'] = 5
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
 
@@ -153,7 +153,7 @@ def comparer_scipy(a, b, n, p1, p2, p3, p4):
     plt.plot(liste_n, temps_calcul_trap, color='red', label='méthode des trapèzes (Scipy)')
     plt.plot(liste_n, temps_calcul_simp, color='green', label='méthode de Simpson (Scipy)')
     plt.xlabel('Nombre de segments')
-    plt.ylabel('Temps de calcul (s)')
+    plt.ylabel('Erreur')
     plt.title('Evolution du temps de calcul en fonction du nombre de segments et de la méthode intégrée dans Scipy')
     plt.legend()
 
@@ -173,6 +173,6 @@ def comparer_scipy(a, b, n, p1, p2, p3, p4):
 # ================================================================================================
 # Appel des fonctions
 
-comparer_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-comparer_convergence(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+# comparer_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+# comparer_convergence(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 comparer_scipy(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)

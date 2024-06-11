@@ -246,12 +246,13 @@ def afficher_courbes(n, temps_calc_python, temps_calc_numpy, temps_calc_scipy, e
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 3)
-    plt.plot(liste_n, y_lin_py, color='green')
-    plt.plot(liste_n, y_lin_np, color='magenta')
-    plt.plot(liste_n, y_lin_sp, color='yellow')
+    plt.plot(liste_n, y_lin_py, color='green', label='méthode Python')
+    plt.plot(liste_n, y_lin_np, color='magenta', label='méthode Numpy')
+    plt.plot(liste_n, y_lin_sp, color='yellow', label='méthode Scipy')
     plt.title('Evolution du temps de calcul de la méthode de Simspon en fonction du nombre de segments (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
+    plt.legend()
 
     # plt.subplot(2, 2, 4)
     # plt.yscale('log')
@@ -278,9 +279,10 @@ nombre_segments = 500
 # Zone d'appel des fonctions :
 
 # tracer_courbes(p_1, p_2, p_3, p_4, borne_a, borne_b, nombre_segments)
-(temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy,
- erreurs_scipy, y_lineaire_python, y_lineaire_numpy, y_lineaire_scipy) = \
-    etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+# (temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy,
+# erreurs_scipy, y_lineaire_python, y_lineaire_numpy, y_lineaire_scipy) = \
+#    etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+
 # tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python,
-                 erreurs_numpy, erreurs_scipy, y_lineaire_python, y_lineaire_numpy, y_lineaire_scipy)
+# afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python,
+#                  erreurs_numpy, erreurs_scipy, y_lineaire_python, y_lineaire_numpy, y_lineaire_scipy)
