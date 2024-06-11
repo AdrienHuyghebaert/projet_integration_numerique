@@ -25,17 +25,13 @@ Le temps de calcul est donné par la fonction ***perf counter*** du package time
 
 Le fichier contient les fonctions suivantes:
 
-- methodes_des_rectangles_py(): calcule l'aire avec la méthode des rectangles en Python simple (entrées : *a, b, n, p1, p2, p3, p4* / sorties : *les valeurs des abscisses (non utlisée) et des ordonnées ainsi que l'aire totale calculée à l'aide de la méthode*)
-- methodes_des_rectangles_numpy(): calcule l'aire avec la méthode des rectangles en vectoriant le code (entrées : *a, b, n, p1, p2, p3, p4* / sorties : *les valeurs des abscisses (non utlisée) et des ordonnées ainsi que l'aire totale calculée à l'aide de la méthode*)
-- calculer_fonction_polynomiale(): calcule f(x) (entrées : *x, p1, p2, p3, p4* / sortie : *la valeur du polynôme calculée*)
-- calculer_integrale_exacte(): calcule l'aire exacte par intégration de la fonction entre a et b (entrées : *a,b, p1, p2, p3, p4* / sortie : *l'intégrale calculée entre les bornes a et b*)
-- methodes_trapezes_numpy(): calcule l'aire avec la méthode des trapèzes avec vectorisation du code 
-- aire_trapeze_scipy(): calculer l'aire sous la courbe à partir de la fonction ***trapezoid*** du package integrate de **scipy**
-- calcul_convergence_temps_scipy(): renvoie le tableau des temps de calcul de scipy et le tableau des différences avec l'aire exacte (erreurs) pour n variant de 1 à 1000
-- tracer_convergence_temps_scipy(): trace les courbes avec les données de la fonction ci-dessus
-- tracer_graphique_trapeze(): trace les courbes de la méthode des trapèzes pour pyhton et numpy (n fixé) et renvoie la valeur de l'aire sous la courbe 
-- calculer_temps_convergence(): renvoie un tableau des différences maximales des ordonnées pour chaque valeur de segment n et un tableau des temps calculés
-- tracer_convergence_temps_python_numpy(): trace les courbes de la fonction précédente
+- methodes_des_rectangles_py(a, b, n, p1, p2, p3, p4): calcule l'aire avec la méthode des rectangles en Python simple (sorties : *les valeurs des abscisses (non utlisée) et des ordonnées ainsi que l'aire totale calculée à l'aide de la méthode*)
+- methodes_des_rectangles_numpy(a, b, n, p1, p2, p3, p4): calcule l'aire avec la méthode des rectangles en vectoriant le code (sorties : *les valeurs des abscisses (non utlisée) et des ordonnées ainsi que l'aire totale calculée à l'aide de la méthode*)
+- calculer_fonction_polynomiale(x, p1, p2, p3, p4): calcule f(x) (sortie : *la valeur du polynôme calculée*)
+- calculer_integrale_exacte(a, b, n, p1, p2, p3, p4): calcule l'aire exacte par intégration de la fonction entre a et b (sortie : *l'intégrale calculée entre les bornes a et b*)
+- tracer_graphique(a, b, n, p1, p2, p3, p4): trace les courbes de la méthode des rectangles pour Python et Numpy pour n =10 et 100 par rapport à la fonction
+- temps_execution(a, b, n, p1, p2, p3, p4): calcul le temps d'exécution de la méthode des rectangles pour Python et Numpy (sorties : *Le temps de calcul des deux méthodes*)
+- etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4): 
 
 
 
@@ -45,7 +41,8 @@ Le fichier contient les fonctions suivantes:
 
 - fonction_polynomiale(): calcule f(x) selon les coefficients donnés
 - integrale_exacte(): calcule l'aire exacte par intégration de la fonction entre a et b
-- methodes_trapezes_python(): calcule l'aire avec la méthode des trapèzes en python simple, la formule mathématique est la suivante:
+- methodes_trapezes_python(): calcule l'aire avec la méthode des trapèzes en Python simple, la formule mathématique est la suivante: calcul le temps de calcul et l'erreur des méthodes numériques par rapport à l'intégrale analytique en fonction d'un nombre de segments donnés (sorties : *Des tableaux des erreurs et des temps de calcul pour les différentes méthodes*)
+- afficher_courbes(a, b, n, p1, p2, p3, p4): trace les différentes courbes en fonction des données de sortie de la fonction de la fonction précédente
   
   ![image](https://github.com/AdrienHuyghebaert/projet_integration_numerique/assets/169942081/9cd38ec2-e26c-47b5-85b7-38b39f7c7732)
 
@@ -53,7 +50,7 @@ Le fichier contient les fonctions suivantes:
 - aire_trapeze_scipy(): calculer l'aire sous la courbe à partir de la fonction ***trapezoid*** du package integrate de **scipy**
 - calcul_convergence_temps_scipy(): renvoie le tableau des temps de calcul de scipy et le tableau des différences avec l'aire exacte (erreurs) pour n variant de 1 à 1000
 - tracer_convergence_temps_scipy(): trace les courbes avec les données de la fonction ci-dessus
-- tracer_graphique_trapeze(): trace les courbes de la méthode des trapèzes pour pyhton et numpy (n fixé) et renvoie la valeur de l'aire sous la courbe 
+- tracer_graphique_trapeze(): trace les courbes de la méthode des trapèzes pour Python et Numpy (n fixé) et renvoie la valeur de l'aire sous la courbe 
 - calculer_temps_convergence(): renvoie un tableau des différences maximales des ordonnées pour chaque valeur de segment n et un tableau des temps calculés
 - tracer_convergence_temps_python_numpy(): trace les courbes de la fonction précédente
 
@@ -104,6 +101,7 @@ Il contient les fonctions suivantes:
 - comparer_convergence(): affiche le graphique des tracés de la convergence pour les 3 méthodes
 - comparer_scipy(): affiche les graphiques des tracés de la convergence et du temps de calcul avec scipy pour les méthodes des trapèzes et de simpson
 
+Ces fonctions récupèrent les informations nécessaires des .py des autres méthodes et affichent les graphiques correspondants.
 
 
 
