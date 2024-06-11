@@ -17,7 +17,7 @@ from scipy.integrate import trapezoid
 # p4 = 3
 # a = -1
 # b = 1
-# n = 100
+# n = 1000
 
 # ======================================= Fonction polynomiale ====================================================
 
