@@ -65,8 +65,8 @@ def comparer_temps_calcul(a, b, n, p1, p2, p3, p4):
     plt.plot(liste_n, temps_calcul_simp_python, color='green', label='méthode de Simpson (Python)')
 
     # Avec Numpy
-    plt.plot(liste_n, temps_calcul_rect_numpy, color='blue',linestyle='--', label='méthode des rectangles (Numpy)')
-    plt.plot(liste_n, temps_calcul_traps_numpy, color='red',linestyle='--', label='méthode des trapèzes (Numpy)')
+    plt.plot(liste_n, temps_calcul_rect_numpy, color='blue', linestyle='--', label='méthode des rectangles (Numpy)')
+    plt.plot(liste_n, temps_calcul_traps_numpy, color='red', linestyle='--', label='méthode des trapèzes (Numpy)')
     plt.plot(liste_n, temps_calcul_simp_numpy, color='green', linestyle='--', label='méthode de Simpson (Numpy)')
 
     plt.xlabel('Nombre de segments')
