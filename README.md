@@ -1,5 +1,5 @@
 ### BUT:
-Ce programme permet de comparer 3 méthode d'intégration apr calcul de l'aire sous la courbe:
+Ce programme permet de comparer 3 méthodes d'intégration par calcul de l'aire sous la courbe et d'afficher des graphiques de convergence et de temps de calcul de chaque méthode:
 - méthode des rectangles
 - méthode des trapèzes
 - méthode de Simpson
@@ -8,10 +8,33 @@ Ce programme permet de comparer 3 méthode d'intégration apr calcul de l'aire s
 
 Pour chaque méthode, on compare un code en python classique et un avec la librairie numpy. Pour les deux dernières méthodes, on les compare également avec les fonctions déjà implémentées de scipy qui permettent le calcul d'intégrales. 
 Chaque méthode est implémentée dans un fichier python séparé portant le même nom.
-Le fichier .main contient le programme principal qui appelle les autres fichiers.
+Le fichier .main contient le programme principal qui appelle les autres fichiers et trace les courbes de comparaison des 3 méthodes. 
+Le temps de calcul est donné par la fonction perf counter du package time. Nous utilisons une régression linéaire pour afficher le temps de calcul dans un souci de clarté des graphiques.
 
-### Utilisation du code:
+**Méthode des rectangles**
 
+
+
+
+
+
+
+**Méthode des trapèzes**
+
+Le fichier contient les fonctions suivantes:
+
+- fonction_polynomiale(): calcule f(x) selon les coefficients donnés
+- integrale_exacte(): calcule l'aire exacte par intégration de la fonction entre a et b
+- methodes_trapezes_python(): calcule l'aire avec la méthode des trapèzes en pyhton simple
+- methodes_trapezes_numpy(): calcule l'aire avec la méthode des trapèzes en vectorisant
+- aire_trapeze_scipy(): calculer l'aire sous la courbe à partir de la fonction 'trapezoid' du package integrate de scipy
+- calcul_convergence_temps_scipy(): renvoie le tableau des temps de calcul de scipy et le tableau des différences des aires (erreurs) de la méthode 
+- tracer_convergence_temps_scipy(): trace les courbes avec les données de la fonction ci-dessus
+- tracer_graphique_trapeze(): trace les courbes de la méthode des trapèzes pour pyhton et numpy (n fixé) et renvoie la valeur de l'aire sous la courbe 
+- calculer_temps_convergence(): renvoie un tableau des différences maximales des ordonnées pour chaque valeur de segment n et un tableau des temps calculés
+- tracer_convergence_temps_python_numpy(): trace les courbes de la fonction précédente
+
+  
 
 **Méthode de Simpson**
 
@@ -49,19 +72,3 @@ Cette fonction évalue la fonction avec les paramètres définis pas l'utilisate
 Trace les courbes de la méthode Simpson pour la version simple et la version vectorisée. 
 
 *Une fonction permet également d'obtenir la valeur calculée selon un module Scipy : **calcul_integrale_simpson_scipy()***
-
-
-**Méthode des trapèzes**
-
-Le fichier contient les fonctions suivantes:
-
-- fonction_polynomiale(p1, p2, p3, p4, x):
-- integrale_exacte(p1, p2, p3, p4, a, b):
-- methodes_trapezes_python(a, b, n, p1, p2, p3, p4):
-- methodes_trapezes_numpy(a, b, n, p1, p2, p3, p4):
-- aire_trapeze_scipy(a, b, n, p1, p2, p3, p4):
-- calcul_convergence_temps_scipy(a, b, p1, p2, p3, p4, n):
-- tracer_convergence_temps_scipy(a, b, p1, p2, p3, p4, n):
-- tracer_graphique_trapeze(a, b, n, p1, p2, p3, p4):
-- calculer_temps_convergence(p1, p2, p3, p4, a, b, n):
-- tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):
