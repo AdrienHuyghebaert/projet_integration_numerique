@@ -57,7 +57,7 @@ def calculer_integrale_exacte(a, b, p1, p2, p3, p4):
 # ================================================================================================
 # Affichage des deux méthodes en fonction de la fonction
 def tracer_graphique(a, b, n, p1, p2, p3, p4):
-    plt.rcParams['font.size'] = 8
+    plt.rcParams['font.size'] = 10
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 100
 
