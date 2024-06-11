@@ -59,13 +59,13 @@ def formule_simpson_vect(p1, p2, p3, p4, a, b):
 
 def calcul_integrale_simpson_vect(p1, p2, p3, p4, a, b, n):
     # définition de l'intervalle de calcul
-    pts_calcul = np.linspace(a, b, n+1)
+    pts_calcul = np.linspace(a, b, n + 1)
 
     # calcul des points de la fonction associé aux valeurs de l'intervalle
     pts_courbe = fction_vect(p1, p2, p3, p4, pts_calcul)
 
     # et de la somme des aires sous la courbe associé
-    somme = np.sum(formule_simpson_vect(p1, p2, p3, p4, pts_calcul[0:n], pts_calcul[1:n+1]))
+    somme = np.sum(formule_simpson_vect(p1, p2, p3, p4, pts_calcul[0:n], pts_calcul[1:n + 1]))
 
     return somme, pts_calcul, pts_courbe
 
@@ -80,7 +80,7 @@ def fction_vect(p1, p2, p3, p4, x):
 
 def calcul_integrale_simpson_scipy(p1, p2, p3, p4, a, b, n):
     # définition de l'intervalle de calcul
-    pts_calcul = np.linspace(a, b, n+1)
+    pts_calcul = np.linspace(a, b, n + 1)
 
     # calcul des points de la fonction associé aux valeurs de l'intervalle
     pts_courbe = p1 + p2 * pts_calcul + p3 * np.power(pts_calcul, 2) + p4 * np.power(pts_calcul, 3)
@@ -201,16 +201,35 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
 
         cpt += 1
 
-    return temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy, erreurs_scipy
+    # Régression linéaire pour l'affichage du temps de calcul python
+
+    coefficients_python = np.polyfit(liste_n, temps_calcul_python, 1)  # 1 pour une régression linéaire
+    slope, intercept = coefficients_python
+    y_lineaire_python = slope * liste_n + intercept
+
+    # Régression linéaire pour l'affichage du temps de calcul numpy
+
+    coefficients_numpy = np.polyfit(liste_n, temps_calcul_numpy, 1)  # 1 pour une régression linéaire
+    slope, intercept = coefficients_numpy
+    y_lineaire_numpy = slope * liste_n + intercept
+
+    # Régression linéaire pour l'affichage du temps de calcul numpy
+
+    coefficients_scipy = np.polyfit(liste_n, temps_calcul_scipy, 1)  # 1 pour une régression linéaire
+    slope, intercept = coefficients_scipy
+    y_lineaire_scipy = slope * liste_n + intercept
+
+    return (temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python,
+            erreurs_numpy, erreurs_scipy, y_lineaire_python, y_lineaire_numpy, y_lineaire_scipy)
 
 
 # ================================================================================================
 # Fonction qui gère l'affichage des graphes
-def afficher_courbes(n, temps_calc_python, temps_calc_numpy, temps_calc_scipy, erreurs_pyt, erreurs_num, erreurs_sci):
+def afficher_courbes(n, temps_calc_python, temps_calc_numpy, temps_calc_scipy, erreurs_pyt, erreurs_num, erreurs_sci, y_lin_py, y_lin_np, y_lin_sp):
     liste_n = np.arange(1, n + 1, 1)
 
     # Affichage des 4 courbes
-    plt.rcParams['font.size'] = 4
+    plt.rcParams['font.size'] = 5
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
 
@@ -227,19 +246,20 @@ def afficher_courbes(n, temps_calc_python, temps_calc_numpy, temps_calc_scipy, e
     plt.ylabel('Erreur maximale')
 
     plt.subplot(2, 2, 3)
-    plt.plot(liste_n, temps_calc_python, color='green')
-    plt.plot(liste_n, temps_calc_numpy, color='magenta')
-    plt.plot(liste_n, temps_calc_scipy, color='yellow')
+    plt.plot(liste_n, y_lin_py, color='green')
+    plt.plot(liste_n, y_lin_np, color='magenta')
+    plt.plot(liste_n, y_lin_sp, color='yellow')
     plt.title('Evolution du temps de calcul de la méthode de Simspon en fonction du nombre de segments (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
 
-    plt.subplot(2, 2, 4)
-    plt.yscale('log')
-    plt.plot(liste_n, erreurs_sci, color='yellow')
-    plt.title('Evolution de la convergence de la méthode de Simpson importée en fonction du nombre de segments (scipy)')
-    plt.xlabel('Nombre de segments')
-    plt.ylabel('Erreur maximale')
+    # plt.subplot(2, 2, 4)
+    # plt.yscale('log')
+    # plt.plot(liste_n, erreurs_sci, color='yellow')
+    # plt.title('Evolution de la convergence de la méthode
+    # de Simpson importée en fonction du nombre de segments (scipy)')
+    # plt.xlabel('Nombre de segments')
+    # plt.ylabel('Erreur maximale')
 
     plt.show()
 
@@ -258,8 +278,9 @@ nombre_segments = 500
 # Zone d'appel des fonctions :
 
 # tracer_courbes(p_1, p_2, p_3, p_4, borne_a, borne_b, nombre_segments)
-temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy, erreurs_scipy =\
+(temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python, erreurs_numpy,
+ erreurs_scipy, y_lineaire_python, y_lineaire_numpy, y_lineaire_scipy) = \
     etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, temps_calcul_scipy, erreurs_python,
-                 erreurs_numpy, erreurs_scipy)
+                 erreurs_numpy, erreurs_scipy, y_lineaire_python, y_lineaire_numpy, y_lineaire_scipy)

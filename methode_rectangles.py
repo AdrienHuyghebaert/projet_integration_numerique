@@ -67,14 +67,14 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     y_ana = [calculer_fonction_polynomiale(i, p1, p2, p3, p4) for i in x_ana]
 
     n = 10  # Affichage pour 10 segments
-    pas = (b - a) / n # Création du pas
+    pas = (b - a) / n  # Création du pas
 
     # Méthode des rectangles avec python
     x_rect_py = methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)[0]
     y_rect_py = methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)[1]
     plt.subplot(2, 2, 1)
-    plt.bar(x_rect_py, y_rect_py, width=pas, align='edge', alpha=0.3, edgecolor='r')
-    plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2)
+    plt.bar(x_rect_py, y_rect_py, width=pas, align='edge', alpha=0.3, edgecolor='r', label='méthode Python')
+    plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2, label='fonction')
     plt.title(f'Méthode des rectangles avec python ({n} segments)')
     plt.xlabel('x')
     plt.ylabel('y')
@@ -85,8 +85,8 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     x_rect_np = methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)[0]
     y_rect_np = methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)[1]
     plt.subplot(2, 2, 2)
-    plt.bar(x_rect_np, y_rect_np, width=pas, align='edge', alpha=0.3, edgecolor='r')
-    plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2)
+    plt.bar(x_rect_np, y_rect_np, width=pas, align='edge', alpha=0.3, edgecolor='r', label='méthode Numpy')
+    plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2, label='fonction')
     plt.title(f'Méthode des rectangles avec numpy({n} segments)')
     plt.xlabel('x')
     plt.ylabel('y')
@@ -94,14 +94,14 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     plt.grid()
 
     n = 100  # Affichage pour 100 segments
-    pas = (b - a) / n # Changement du pas
+    pas = (b - a) / n  # Changement du pas
 
     # Méthode des rectangles avec python
     x_rect_py = methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)[0]
     y_rect_py = methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)[1]
     plt.subplot(2, 2, 3)
-    plt.bar(x_rect_py, y_rect_py, width=pas, align='edge', alpha=0.3, edgecolor='r')
-    plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2)
+    plt.bar(x_rect_py, y_rect_py, width=pas, align='edge', alpha=0.3, edgecolor='r', label='méthode Python')
+    plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2, label='fonction')
     plt.title(f'Méthode des rectangles avec python ({n} segments)')
     plt.xlabel('x')
     plt.ylabel('y')
@@ -112,8 +112,8 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     x_rect_np = methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)[0]
     y_rect_np = methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)[1]
     plt.subplot(2, 2, 4)
-    plt.bar(x_rect_np, y_rect_np, width=pas, align='edge', alpha=0.3, edgecolor='r')
-    plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2)
+    plt.bar(x_rect_np, y_rect_np, width=pas, align='edge', alpha=0.3, edgecolor='r', label='méthode Numpy')
+    plt.plot(x_ana, y_ana, color='black', linestyle='-', linewidth=2, label='fonction')
     plt.title(f'Méthode des rectangles avec numpy ({n} segments)')
     plt.xlabel('x')
     plt.ylabel('y')
@@ -168,35 +168,49 @@ def etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4):
 
         cpt += 1
 
-    return temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy
+    # Régression linéaire pour l'affichage du temps de calcul python
+
+    coefficients_python = np.polyfit(liste_n, temps_calcul_python, 1)  # 1 pour une régression linéaire
+    slope, intercept = coefficients_python
+    y_lineaire_python = slope * liste_n + intercept
+
+    # Régression linéaire pour l'affichage du temps de calcul numpy
+
+    coefficients_numpy = np.polyfit(liste_n, temps_calcul_numpy, 1)  # 1 pour une régression linéaire
+    slope, intercept = coefficients_numpy
+    y_lineaire_numpy = slope * liste_n + intercept
+
+    return temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy, y_lineaire_python, y_lineaire_numpy
 
 
 # ================================================================================================
 # Fonction qui gère l'affichage des graphes des temps de calcul et des convergences
-def afficher_courbes(n, temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy):
+def afficher_courbes(a, b, n, p1, p2, p3, p4):
     liste_n = np.arange(1, n + 1, 1)
 
-    plt.rcParams['font.size'] = 4
+    plt.rcParams['font.size'] = 5
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 125
 
     plt.subplot(2, 2, 1)
     plt.yscale('log')
-    plt.plot(liste_n, erreurs_python, color='green')
+    plt.plot(liste_n, etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[2], color='green')
     plt.title('Evolution de la convergence de la méthode des rectangles en fonction du nombre de segments (python)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur (échelle log)')
 
     plt.subplot(2, 2, 2)
     plt.yscale('log')
-    plt.plot(liste_n, erreurs_numpy, color='magenta')
+    plt.plot(liste_n, etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[3], color='magenta')
     plt.title('Evolution de la convergence de la méthode des rectangles en fonction du nombre de segments (numpy)')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Erreur maximale (échelle log)')
 
     plt.subplot(2, 2, 3)
-    plt.plot(liste_n, temps_calcul_python, color='green', label='méthode des rectangles (Python)')
-    plt.plot(liste_n, temps_calcul_numpy, color='magenta', label='méthode des rectangles (Numpy)')
+    plt.plot(liste_n, etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[4],
+             color='green', label='méthode des rectangles (Python)')
+    plt.plot(liste_n, etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4)[5],
+             color='magenta', label='méthode des rectangles (Numpy)')
     plt.title('Evolution du temps de calcul de la méthode des rectangles en fonction du nombre de segments')
     plt.xlabel('Nombre de segments')
     plt.ylabel('Temps de calcul (s)')
@@ -219,7 +233,6 @@ p_4 = 3
 # methode_des_rectangles_py(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # calculer_integrale_exacte(borne_a, borne_b, p_1, p_2, p_3, p_4)
 # temps_execution(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-# temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy = (
-#    etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4))
+# etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4))
 # tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
-# afficher_courbes(nombre_segments, temps_calcul_python, temps_calcul_numpy, erreurs_python, erreurs_numpy)
+afficher_courbes(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
