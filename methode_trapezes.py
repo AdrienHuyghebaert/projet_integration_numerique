@@ -1,6 +1,6 @@
 # ================================================================================================
 # Auteur: Groupe
-# Date: 11 juin 2024
+# Date: 12 juin 2024
 # Intégrale numérique: Méthode des trapezes
 # ================================================================================================
 
@@ -11,13 +11,15 @@ from time import perf_counter
 import matplotlib.pyplot as plt
 from scipy.integrate import trapezoid
 
+# Paramètres d'entree
+
 # p1 = 24
 # p2 = -30
 # p3 = -50
 # p4 = 3
 # a = -1
 # b = 1
-# n = 100
+# n = 1000
 
 # ======================================= Fonction polynomiale ====================================================
 
@@ -32,11 +34,11 @@ def fonction_polynomiale(p1, p2, p3, p4, x):
 
 
 def integrale_exacte(p1, p2, p3, p4, a, b):
-    integrale_exacte = (p1 * (b - a) + p2 * ((b ** 2) - (a ** 2))/2
-                        + p3 * ((b ** 3) - (a ** 3))/3 + p4 * ((b ** 4) - (a ** 4))/4)
-    return integrale_exacte
+    integrale_exacte_calcul = (p1 * (b - a) + p2 * ((b ** 2) - (a ** 2))/2
+                               + p3 * ((b ** 3) - (a ** 3))/3 + p4 * ((b ** 4) - (a ** 4))/4)
+    return integrale_exacte_calcul
 
-# ========================================== Méthode python ===============================================
+# ========================================== Méthode calcul aire python ===============================================
 
 
 # Fonction 2: Méthode des trapezes en python
@@ -184,13 +186,15 @@ def tracer_graphique_trapeze(a, b, n, p1, p2, p3, p4):
 
     plt.show()
 
-    # Affichage des tableaux
+    # Affichage des aires pour un polynome et un nombre de segment donné
 
     print("Tableau des ordonnées de la fonction polynomiale:\n", y, '\n')
     print('-'*50 + 'Données aires' + '-'*50)
     print('Aire totale exacte:', integrale_exacte(p1, p2, p3, p4, a, b), '\n')
-    print("Aire totale sous la courbe méthode des trapèzes:",
+    print("Aire totale sous la courbe méthode des trapèzes (python):",
           methodes_trapezes_python(a, b, n, p1, p2, p3, p4)[0], '\n')
+    print("Aire totale sous la courbe méthode des trapèzes (numpy):",
+          methodes_trapezes_numpy(a, b, n, p1, p2, p3, p4)[0], '\n')
     print("Aire totale sous la courbe avec scipy:", aire_trapeze_scipy(a, b, n, p1, p2, p3, p4), '\n')
     print('-' * 115)
 
@@ -211,7 +215,7 @@ def tracer_graphique_trapeze(a, b, n, p1, p2, p3, p4):
     if toc1-tic1 > toc2-tic2:
         print('Méthode numpy plus rapide que méthode python')
     else:
-        print('false')
+        print('Méthode python plus rapide que méthode numpy')
 
 
 # ======================================== Convergence et temps de calcul trapèzes =============================
@@ -308,6 +312,8 @@ def tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n):
     plt.ylabel('Temps de calcul (s)')
 
     plt.show()
+
+# Appel des fonctions pour les graphiques:
 
 # tracer_convergence_temps_python_numpy(p1, p2, p3, p4, a, b, n)
 #
