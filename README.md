@@ -29,7 +29,7 @@ Le fichier contient les fonctions suivantes:
 - methodes_des_rectangles_numpy(a, b, n, p1, p2, p3, p4): calcule l'aire avec la méthode des rectangles en vectoriant le code (sorties : *les valeurs des abscisses (non utlisée) et des ordonnées ainsi que l'aire totale calculée à l'aide de la méthode*)
 - calculer_fonction_polynomiale(x, p1, p2, p3, p4): calcule f(x) (sortie : *la valeur du polynôme calculée*)
 - calculer_integrale_exacte(a, b, n, p1, p2, p3, p4): calcule l'aire exacte par intégration de la fonction entre a et b (sortie : *l'intégrale calculée entre les bornes a et b*)
-- tracer_graphique(a, b, n, p1, p2, p3, p4): trace les courbes de la méthode des rectangles pour Python et Numpy pour n =10 et 100 par rapport à la fonction
+- tracer_graphique(a, b, n, p1, p2, p3, p4): trace les courbes de la méthode des rectangles pour Python et Numpy pour n =10 et 1000 par rapport à la fonction et compare les valeurs des intégrales par rapport la valeur exacte pour différents segments
 - temps_execution(a, b, n, p1, p2, p3, p4): calcul le temps d'exécution de la méthode des rectangles pour Python et Numpy (sorties : *Le temps de calcul des deux méthodes*)
 - etudier_convergence_temps_calcul(a, b, n, p1, p2, p3, p4): calcul la convergence et le temps de calcul des différentes méthodes en fonction du nombre de segments (sorties : *des tableaux des temps de calcul et des convergences des différentes méthodes*)
 - (non utilisée) afficher_courbes(a, b, n, p1, p2, p3, p4): affiche des graphiques en prenant les différents éléments de sortie de la fonction précédente
