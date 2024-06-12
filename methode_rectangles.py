@@ -55,8 +55,8 @@ def calculer_integrale_exacte(a, b, p1, p2, p3, p4):
 
 
 # ================================================================================================
-# Affichage des deux méthodes en fonction de la fonction
-def tracer_graphique(a, b, n, p1, p2, p3, p4):
+# Affichage des deux méthodes en fonction de la fonction et du nombre de segments
+def tracer_graphiques(a, b, n, p1, p2, p3, p4):
     plt.rcParams['font.size'] = 8
     plt.rcParams['figure.autolayout'] = True
     plt.rcParams['figure.dpi'] = 100
@@ -93,7 +93,7 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     plt.legend()
     plt.grid()
 
-    n = 100  # Affichage pour 100 segments
+    n = 1000  # Affichage pour 1000 segments
     pas = (b - a) / n  # Changement du pas
 
     # Méthode des rectangles avec python
@@ -120,13 +120,35 @@ def tracer_graphique(a, b, n, p1, p2, p3, p4):
     plt.legend()
     plt.grid()
 
+    # Comparatif des valeurs des intégrales
+
+    nombre_segments = [10, 1000, 5000, 10000]
+    integrales_py = [methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)[2] for n in nombre_segments]
+    integrales_np = [methode_des_rectangles_numpy(a, b, n, p1, p2, p3, p4)[2] for n in nombre_segments]
+    integrale_exacte = calculer_integrale_exacte(a, b, p1, p2, p3, p4)
+    bar_width = 0.35
+    index = np.arange(len(nombre_segments))
+
+    fig, ax = plt.subplots()
+
+    ax.bar(index - bar_width / 2, integrales_py, bar_width, label='Méthode Python', color='blue')
+    ax.bar(index + bar_width / 2, integrales_np, bar_width, label='Méthode Numpy', color='red')
+
+    ax.axhline(y=integrale_exacte, color='green', label='Intégrale exacte (analytique)')
+
+    ax.set_xlabel('Nombre de segments')
+    ax.set_ylabel('Valeur de l\'intégrale')
+    ax.set_title('Comparaison des méthodes d\'intégration')
+    ax.set_xticks(index)
+    ax.set_xticklabels(nombre_segments)
+    ax.legend()
+    plt.tight_layout()
     plt.show()
 
 
 # ================================================================================================
 # Temps d'exécution des deux méthodes
 def temps_execution(a, b, n, p1, p2, p3, p4):
-
     # Temps d'exécution de la méthode des rectangles en python
     tic = perf_counter()
     methode_des_rectangles_py(a, b, n, p1, p2, p3, p4)
@@ -234,5 +256,5 @@ p_4 = 3
 # calculer_integrale_exacte(borne_a, borne_b, p_1, p_2, p_3, p_4)
 # temps_execution(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # etudier_convergence_temps_calcul(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4))
-# tracer_graphique(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
+tracer_graphiques(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
 # afficher_courbes(borne_a, borne_b, nombre_segments, p_1, p_2, p_3, p_4)
